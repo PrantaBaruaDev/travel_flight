@@ -1,7 +1,7 @@
 // src/routers/AppRouter.jsx
 import React from 'react';
 import { BrowserRouter, Routes , Route } from 'react-router-dom';
-import Home from 'src/components/Home';
+import Home from 'src/page/Home';
 
 const AppRouter = () => {
     return (
