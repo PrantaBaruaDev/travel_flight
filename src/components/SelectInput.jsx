@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import SearchIcon from "src/assets/search.svg?react";
 import PlainIcon from "src/assets/plane.svg?react";
 import Location from "src/data/location.json";
+import { handleClickOutside, toggleOverlay } from "./functions/utils";
 
 const SelectInput = (props) => {
     const [isOverlayVisible, setOverlayVisible] = useState(false);
@@ -15,28 +16,7 @@ const SelectInput = (props) => {
         airport_name: Location[0].airport_name,
     });
 
-    const [data, setData] = useState({
-        location: Location,
-    });
-
-    // Function to toggle overlay visibility
-    const toggleOverlay = () => {
-        setOverlayVisible((prevState) => !prevState);
-        setActive((prevState) => !prevState);
-    };
-
-    const handleClickOutside = (event) => {
-        // Check if the clicked target is outside the overlay and button
-        if (
-            overlayRef.current &&
-            !overlayRef.current.contains(event.target) &&
-            buttonRef.current &&
-            !buttonRef.current.contains(event.target)
-        ) {
-            setOverlayVisible(false);
-            setActive(false);
-        }
-    };
+    const [location, setLocation] = useState(Location);
 
     const handleSelection = (item) => {
         setSelectData({
@@ -50,9 +30,12 @@ const SelectInput = (props) => {
 
     // Set up the event listener for clicks outside the overlay
     useEffect(() => {
-        document.addEventListener("mousedown", handleClickOutside);
+        const handleOutsideClick = (event) => 
+            handleClickOutside(event, overlayRef, buttonRef, setOverlayVisible, setActive);
+
+        document.addEventListener("mousedown", handleOutsideClick);
         return () => {
-            document.removeEventListener("mousedown", handleClickOutside);
+            document.removeEventListener("mousedown", handleOutsideClick);
         };
     }, []);
 
@@ -67,7 +50,7 @@ const SelectInput = (props) => {
                 className={`search-input-button text-gray-600 border-gray-200 border rounded-xl w-fit pl-5 pr-5 py-3 cursor-pointer ${
                     isActive ? "bg-gray-100" : ""
                 } ${props.style && props.style}`}
-                onClick={toggleOverlay}
+                onClick={() => toggleOverlay(setOverlayVisible, setActive)}
                 onMouseDown={handleMouseDown}
             >
                 <div className="p-0 m-0 text-start ">
@@ -75,7 +58,7 @@ const SelectInput = (props) => {
                     <input
                         type="text"
                         className="focus:outline-none font-bold cursor-pointer bg-transparent"
-                        value={`${selectData.city}, ${selectData.country}`}
+                        value={`${selectData.city}`}
                         readOnly
                     />
                     <div>
@@ -102,8 +85,8 @@ const SelectInput = (props) => {
                         <div className="search-input-container text-gray-600 h-80 overflow-y-auto">
                             {/* This item part is loops */}
 
-                            {data.location &&
-                                data.location.map((item, index) => (
+                            {location &&
+                                location.map((item, index) => (
                                     <div
                                         key={index}
                                         className="item px-3 py-2 flex cursor-pointer justify-between align-middle items-center hover:bg-slate-100"

@@ -1,6 +1,6 @@
 import React from "react";
 // import HomeHero from "./HomeSections/HomeHero";
-import SelectInput from "../components/SelectInput";
+import SelectInput from "src/components/SelectInput";
 import DatePicker from "src/components/DatePickupInput";
 
 const Home = () => {
