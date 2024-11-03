@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import SelectInput from "src/components/SelectInput";
-import DatePicker from "src/components/SelectInputCMP/dateinput/DatePicker";
+import DatePicker from "src/components/DatePickupInput";
 import LocationButtonContent from "src/components/SelectInputCMP/locationInput/LocationButtonContent";
 import LocationOverlayContent from "src/components/SelectInputCMP/locationInput/LocationOverlayContent";
 
