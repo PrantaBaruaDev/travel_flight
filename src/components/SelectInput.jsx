@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+    import React, { useEffect, useRef, useState } from "react";
 import SearchIcon from "src/assets/search.svg?react";
 import PlainIcon from "src/assets/plane.svg?react";
 import Location from "src/data/location.json";
