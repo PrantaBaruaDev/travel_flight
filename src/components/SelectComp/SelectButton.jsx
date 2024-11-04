@@ -5,7 +5,7 @@ const SelectButton = ({ label, selectData, isActive, onClick, buttonRef, style }
     return (
         <div
             ref={buttonRef}
-            className={`search-input-button text-gray-600 border-gray-200 border rounded-xl w-fit pl-5 pr-5 py-3 cursor-pointer ${
+            className={`search-input-button text-gray-600 border-gray-200 border rounded-xl pl-5 pr-5 py-3 cursor-pointer ${
                 isActive ? "bg-gray-100" : ""
             } ${style}`}
             onClick={onClick}

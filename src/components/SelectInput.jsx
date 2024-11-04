@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { toggleOverlay, handleClickOutside } from "src/components/functions/utils";
+import { toggleOverlay, handleClickOutside } from "src/utils/utilsButtonInput";
 import SelectButton from "./SelectComp/SelectButton";
 import Overlay from "./SelectComp/Overlay";
 import Location from 'src/data/location.json';

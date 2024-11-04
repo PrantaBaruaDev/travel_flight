@@ -9,9 +9,8 @@ const SelectInput = (props) => {
     const buttonRef = useRef(null);
 
     const [selectData, setSelectData] = useState({
-        city: Location[0].city,
-        country: Location[0].country,
-        airport_name: Location[0].airport_name,
+        value: Location[0].city,
+        smvalue: Location[0].airport_name,
     });
 
     const [data, setData] = useState({
@@ -44,9 +43,8 @@ const SelectInput = (props) => {
 
     const handleSelection = (item) => {
         setSelectData({
-            city: item.city,
-            country: item.country,
-            airport_name: item.airport_name,
+            value: item.city,
+            smvalue: item.airport_name,
         });
         setOverlayVisible(false);
         setActive(false);
@@ -76,7 +74,7 @@ const SelectInput = (props) => {
         <div className="field-wrapper">
             <div
                 ref={buttonRef}
-                className={`search-input-button text-gray-600 border-gray-200 border rounded-xl w-fit pl-5 pr-5 py-3 cursor-pointer ${
+                className={`search-input-button text-gray-600 border-gray-200 border rounded-xl pl-5 pr-5 py-3 cursor-pointer ${
                     isActive ? "bg-gray-100" : ""
                 } ${props.style && props.style}`}
                 onClick={toggleOverlay}
@@ -87,12 +85,12 @@ const SelectInput = (props) => {
                     <input
                         type="text"
                         className="focus:outline-none font-bold cursor-pointer bg-transparent"
-                        value={`${selectData.city}, ${selectData.country}`}
+                        value={selectData.value}
                         readOnly
                     />
                     <div>
                         <small>
-                            <span>{selectData.airport_name}</span>
+                            <span>{selectData.smvalue}</span>
                         </small>
                     </div>
                 </div>
