@@ -13,7 +13,7 @@ const FlightDetailsOverlay = ({ data }) => {
                     </figure>
                     <div className='font-bold'>
                         <h1 className='text-base'>{`${data.alname}`} <span className='font-normal'>{`${data.operate_country} | ${data.operate_code}`}</span></h1>
-                        <p className='text-sm'>Aircraft: </p>
+                        <p className='text-sm'>Aircraft: {data.aircraft}</p>
                         <p className='text-xs'>Operated by: {data.operate_country}</p>
                         <p className='text-xs'>{data.flight_class}</p>
                         <p className='text-xs'>Available Seats: {data.available_seat}</p>

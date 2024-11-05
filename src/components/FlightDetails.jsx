@@ -8,6 +8,7 @@ const FlightDetails = () => {
         alname: "Biman Bangladesh Airlines",
         operate_country: "BG",
         operate_code: "618",
+        aircraft: "DHC8 Dash 8",
         flight_class: "Economy (G)",
         available_seat: 3,
         parref: true, // Partially Refundable
