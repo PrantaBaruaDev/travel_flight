@@ -1,10 +1,23 @@
 #root {
-  max-width: 1280px;
+  max-width: 1380px;
+  /* max-width: 1280px; */
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
 }
-
+.bg-primary {
+  @apply bg-teal-700;
+}
+.text-primary {
+  @apply text-teal-700;
+}
+.text-secondary {
+  @apply text-gray-600;
+}
+.border-primary {
+  @apply border;
+  @apply border-gray-200;
+}
 .field-wrapper .search-input-button {
   position: relative;
 }
@@ -17,4 +30,24 @@
     -moz-user-select: none; /* For Firefox */
     -webkit-user-select: none; /* For Safari */
     -ms-user-select: none;
+}
+.arrow-line {
+  height: 10px;  
+  margin: 20px 0 10px 0;
+  position: relative;
+}
+
+.arrow-line .line1,
+.arrow-line .line2 {
+  @apply bg-primary;
+  border-radius: 50px;
+  height: 2px;
+}
+
+.arrow-line .line2 {
+  width: 20px;
+  position: absolute;
+  right: -3px;
+  top: -6px;
+  transform: rotate(45deg);
 }
