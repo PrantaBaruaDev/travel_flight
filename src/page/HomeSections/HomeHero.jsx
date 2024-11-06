@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import SelectInput from "src/components/SelectInput";
 import DatePicker from "src/components/DatePickupInput";
-// import LocationButtonContent from "src/components/SelectInputCMP/locationInput/LocationButtonContent";
-// import LocationOverlayContent from "src/components/SelectInputCMP/locationInput/LocationOverlayContent";
+import planeim from "src/assets/simpleplane.jpg";
 import Traveler from "src/components/Traveler";
 
 const HomeHero = () => {
@@ -39,13 +38,34 @@ const HomeHero = () => {
     });
 
     return (
-        <div className="pt-5">
-            <div className="grid grid-flow-row grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-                <SelectInput label={"From"} />
-                <SelectInput label={"To"} />
-                <DatePicker label={"Departure"} />
-                <DatePicker label={"Retrun"} />
-                <Traveler label={"Travelers & Booking Class"} />
+        <div>
+            <div
+                className="hero-section mb-8 rounded-xl shadow-xl"
+                style={{
+                    backgroundImage: `url(${planeim})`,
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                    backgroundRepeat: "no-repeat",
+                    height: "56vh",
+                }}
+            >
+                <div className="hero-input">
+                    {/* <div className="grid grid-flow-row-dense grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mx-5"> */}
+                    <form action="" className="flex flex-col items-center">
+                    <div className="flex flex-wrap gap-3">
+                        <SelectInput label={"From"} />
+                        <SelectInput label={"To"} />
+                        <div className="flex gap-2">
+                            <DatePicker label={"Departure"} />
+                            <DatePicker label={"Retrun"} />
+                        </div>
+                        <Traveler label={"Travelers & Booking Class"} />
+                    </div>
+
+                    <button type="button" className="btn my-3 px-[5em] text-2xl bg-teal-700 border-0 text-white btn-success">Search</button>
+                    
+                    </form>
+                </div>
             </div>
         </div>
     );

@@ -1,6 +1,11 @@
-#root {
+/* #root */
+ #header-root,
+ #slider-root,
+ #fly-app-root,
+ #flight-choose-root,
+ #book-contaxt-root {
   max-width: 1380px;
-  /* max-width: 1280px; */
+  /* /* max-width: 1280px;  */
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
@@ -37,6 +42,18 @@
   position: relative;
 }
 
+.hero-section{
+  position: relative;
+} 
+.hero-section .hero-input {
+  width: 80%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+}
 .arrow-line .line1,
 .arrow-line .line2 {
   @apply bg-primary;

@@ -74,7 +74,7 @@ const SelectInput = (props) => {
         <div className="field-wrapper">
             <div
                 ref={buttonRef}
-                className={`search-input-button text-gray-600 border-gray-200 border rounded-xl pl-5 pr-5 py-3 cursor-pointer ${
+                className={`search-input-button text-gray-600 border-2 rounded-xl w-fit pl-5 pr-5 py-3 cursor-pointer border-teal-700 bg-white ${
                     isActive ? "bg-gray-100" : ""
                 } ${props.style && props.style}`}
                 onClick={toggleOverlay}

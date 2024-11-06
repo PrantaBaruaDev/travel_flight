@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import DownArrow from "src/assets/downarrow.svg?react";
-import FlightDetailsOverlay from "./flight_details/FlightDetailsOverlay";
+import FlightDetailsOverlay from "./FlightDetailsOverlay";
 
 const FlightDetails = () => {
     const [dropdown, setDropdown] = useState(false);

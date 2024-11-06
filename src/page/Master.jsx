@@ -5,7 +5,7 @@ import Footer from 'src/components/Footer';
 const Master = ({children}) => {
     return (
         <div className='master-page'>
-            <header>
+            <header id='header-root'>
                 <Navbar/>             
             </header>
             <main>{children}</main>
