@@ -50,8 +50,8 @@ const Navbar = () => {
 
     return (
 
-<div className="navbar bg-base-100">
-<div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+<div className="navbar ">
+<div tabIndex={0} role="button" className=" btn-circle avatar">
         <div className="w-10 rounded-full">
           <img
             alt="Tailwind CSS Navbar component"
@@ -59,9 +59,9 @@ const Navbar = () => {
         </div>
       </div>
   <div className="flex-1">
-  <div className="grid ">
-      <a className="btn -mr-20 lg:mr-0 btn-ghost mb-0 pt-[20px] font-extrabold  text-teal-700 text-xl">FLYINGZONE</a>
-      <a className="btn -mr-20 lg:mr-0 btn-ghost pt-[0px]   text-Teal-700 -mt-4 text-[12px]">all about your journey</a>
+  <div className="grid w-20 ">
+      <a className="  -mr-20 lg:mr-0  mb-0 pt-[20px] "><span className='font-extrabold  text-teal-700 text-xl'>SIMPLIFLYING</span> <br/> <span className='-mr-20 lg:mr-0  pt-[0px]  -mt-4 '>all about your journey</span></a>
+
     </div>
   </div>
   <div className="flex-none  gap-2">
