@@ -19,12 +19,17 @@ const Navbar = () => {
             </div>
             <div className="flex-1">
                 <div className="grid ">
-                    <a className="btn -mr-20 lg:mr-0 btn-ghost mb-0 pt-[20px] font-extrabold  text-teal-700 text-xl">
+                    <a className="btn -mr-20 lg:mr-0 btn-ghost mb-0 pt-[20px]">
+                        <span className=" font-extrabold  text-teal-700 text-xl">
                         FLYINGZONE
-                    </a>
-                    <a className="btn -mr-20 lg:mr-0 btn-ghost pt-[0px]   text-Teal-700 -mt-4 text-[12px]">
+                        </span>
+                        <span className="-mr-20 lg:mr-0 pt-[0px] text-Teal-700 -mt-4 text-[12px]">
                         all about your journey
+                        </span>
                     </a>
+                    {/* <a className="btn -mr-20 lg:mr-0 btn-ghost pt-[0px]   text-Teal-700 -mt-4 text-[12px]">
+                        all about your journey
+                    </a> */}
                 </div>
             </div>
             <div className="flex-none  gap-2">

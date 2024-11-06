@@ -9,8 +9,8 @@ const SelectInput = (props) => {
     const buttonRef = useRef(null);
 
     const [selectData, setSelectData] = useState({
-        value: Location[0].city,
-        smvalue: Location[0].airport_name,
+        value: "2",
+        smvalue: "Economy",
     });
 
     const [data, setData] = useState({
@@ -85,7 +85,7 @@ const SelectInput = (props) => {
                     <input
                         type="text"
                         className="focus:outline-none font-bold cursor-pointer bg-transparent"
-                        value={selectData.value}
+                        value={`${selectData.value} Travelers`}
                         readOnly
                     />
                     <div>

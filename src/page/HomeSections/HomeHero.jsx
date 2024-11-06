@@ -40,7 +40,7 @@ const HomeHero = () => {
 
     return (
         <div className="pt-5">
-            <div className="grid grid-flow-row-dense grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            <div className="grid grid-flow-row grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
                 <SelectInput label={"From"} />
                 <SelectInput label={"To"} />
                 <DatePicker label={"Departure"} />
