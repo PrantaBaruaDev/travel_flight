@@ -4,7 +4,7 @@ import FilterAirlines from "./FilterAirlines";
 import FilterDepartTime from "./FilterDepartTime";
 
 const FlightFilter = () => {
-    const [data, setData] = useState({ 
+    const [data, setData] = useState({
         airlines: [
             {
                 com_name: "Biman Bangladesh Airlines",
@@ -36,19 +36,32 @@ const FlightFilter = () => {
             {/* Departure Section */}
             <FilterDepartTime departure_location={"Dhaka"} />
 
+            <div>
+                <h1 className="text-start text-xl mb-4 font-medium">
+                    Stops From Dhaka
+                </h1>
+                <div className="form-control">
+                    <label className="cursor-pointer label justify-start gap-2">
+                        <input
+                            type="checkbox"
+                            className="checkbox checkbox-success"
+                        />
+                        <span className="label-text">Partially Refundable</span>
+                    </label>
+                </div>
+            </div>
+
             {/* Airline Section */}
             <h1 className="text-start text-xl mb-4 font-medium">Airlines</h1>
             {data.airlines &&
-                data.airlines.map((item, index) => ( 
-                    <FilterAirlines 
-                        key={index} 
-                        index={index} 
-                        short_name={item.short_name} 
+                data.airlines.map((item, index) => (
+                    <FilterAirlines
+                        key={index}
+                        short_name={item.short_name}
                         com_name={item.com_name}
                         ticket_price={item.ticket_price}
                     />
-                ))
-            }
+                ))}
         </div>
     );
 };

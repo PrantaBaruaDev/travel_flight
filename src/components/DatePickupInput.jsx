@@ -33,10 +33,10 @@ const DatePickupInput = ({ label, style }) => {
                     type="date"
                     className="focus:outline-none font-bold cursor-pointer bg-transparent"
                     id="date"
-                    value={selectedDate}
+                value={selectedDate}
                     ref={dateInputRef}
                     onChange={(event) => handleChange(event, setSelectedDate)}
-                    min={getNextDay()} // Set min to the next day
+                    min={getTodayDate()} // Set min to the next day
                 />
                 <div>
                     <small>
