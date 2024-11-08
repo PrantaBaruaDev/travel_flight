@@ -46,13 +46,14 @@
   position: relative;
 } 
 .hero-section .hero-input {
-  width: 80%;
+  width: 95%;
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
   margin-left: auto;
   margin-right: auto;
+  padding-top: 15px;
 }
 .arrow-line .line1,
 .arrow-line .line2 {

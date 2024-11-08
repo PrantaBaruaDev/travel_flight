@@ -39,20 +39,21 @@ const HomeHero = () => {
 
     return (
         <div>
-            <div
-                className="hero-section mb-8 rounded-xl shadow-xl"
-                style={{
-                    backgroundImage: `url(${planeim})`,
-                    backgroundSize: "cover",
-                    backgroundPosition: "center",
-                    backgroundRepeat: "no-repeat",
-                    height: "56vh",
-                }}
-            >
-                <div className="hero-input">
+  <div
+    className="hero-section h-[550px] sm:h-[550px] xs:h-[850px] lg:h-[490px] mb-8 rounded-xl shadow-xl"
+    style={{
+        backgroundImage: `url(${planeim})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+    }}
+>
+
+
+                <div className="hero-input  rounded-2xl bg-slate-50/80 mb-5 ">
                     {/* <div className="grid grid-flow-row-dense grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mx-5"> */}
                     <form action="" className="flex flex-col items-center">
-                    <div className="flex flex-wrap gap-3">
+                    <div className="flex flex-wrap gap-3 ">
                         <SelectInput label={"From"} />
                         <SelectInput label={"To"} />
                         <div className="flex gap-2">
