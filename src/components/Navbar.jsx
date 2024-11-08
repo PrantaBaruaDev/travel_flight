@@ -1,7 +1,9 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 const Navbar = () => {
+    const navigate = useNavigate();
+
     return (
         <div>
             <div className="navbar bg-base-100">
@@ -28,7 +30,7 @@ const Navbar = () => {
                     </div>
                 </div>
                 <div className="flex-none  gap-2">
-                    <button className="btn ml-[110px] lg:ml-[950px]  bg-teal-700 border-0  text-white btn-success">
+                    <button onClick={() => navigate('/signin')}  className="btn ml-[110px] lg:ml-[950px]  bg-teal-700 border-0  text-white btn-success">
                         Sign in
                     </button>
                 </div>
@@ -40,6 +42,9 @@ const Navbar = () => {
                     </li>
                     <li>
                         <Link to="/chooseflight">Flight</Link>
+                    </li>
+                    <li>
+                        <Link to="/travelerdetails">travellerdetails</Link>
                     </li>
                 </ul>
             </nav>

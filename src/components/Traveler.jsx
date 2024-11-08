@@ -9,7 +9,7 @@ const SelectInput = (props) => {
     const buttonRef = useRef(null);
 
     const [selectData, setSelectData] = useState({
-        value: "2",
+        value: "0",
         smvalue: "Economy",
     });
 

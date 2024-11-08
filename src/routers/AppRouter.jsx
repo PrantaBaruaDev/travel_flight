@@ -4,8 +4,9 @@ import { BrowserRouter, Routes , Route } from 'react-router-dom';
 import Home from 'src/page/Home';
 import FlightChoose from 'src/page/FlightChoose';
 import Master from 'src/page/Master';
-import Navbar from '../components/Navbar';
 
+import Signin from '../page/Signin';
+import Travellerdetails from '../page/Travellerdetails';
 const AppRouter = () => {
     return (
         <BrowserRouter>
@@ -13,6 +14,8 @@ const AppRouter = () => {
             <Routes>
                 <Route path={"/"} element={<Home />} />
                 <Route path={"/chooseflight"} element={<FlightChoose />} />
+                <Route path={"/signin"} element={<Signin/>} />
+                <Route path={"/travelerdetails"} element={<Travellerdetails/>}></Route>
             </Routes> 
             </Master>
         </BrowserRouter>
