@@ -293,7 +293,6 @@ const SelectInput = (props) => {
                         </div>
                         </div>
 
-
                         <div className="flex gap-4 ml-4">
                         <input
                         type="checkbox"
@@ -326,7 +325,6 @@ const SelectInput = (props) => {
 
 
 
-
                
                         </div>
                     </div>
@@ -337,3 +335,5 @@ const SelectInput = (props) => {
 };
 
 export default SelectInput;
+
+
