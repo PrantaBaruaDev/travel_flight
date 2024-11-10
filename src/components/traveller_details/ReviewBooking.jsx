@@ -5,7 +5,7 @@ const ReviewBooking = () => {
     const data = useContext(flightDataContext);
 
     return (
-        <div className="card bg-white shadow-xl px-4 py-5 rounded-xl">
+        <div className="card bg-white shadow-xl px-4 py-5 mb-5 rounded-xl">
             <div className="flex gap-5 px-7">
                 <figure className="flex-none">
                     <img

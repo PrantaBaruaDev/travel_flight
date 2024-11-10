@@ -50,7 +50,7 @@ const HomeHero = () => {
 >
 
 
-                <div className="hero-input  rounded-2xl bg-slate-50/80 mb-5 ">
+                <div className="hero-input w-fit rounded-2xl bg-slate-50/80 mb-5 px-4">
                     {/* <div className="grid grid-flow-row-dense grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mx-5"> */}
                     <form action="" className="flex flex-col items-center">
                     <div className="flex flex-wrap gap-3 ">

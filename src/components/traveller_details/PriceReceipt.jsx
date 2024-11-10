@@ -110,7 +110,7 @@ const PriceReceipt = ({ isSticky }) => {
 
       {/* Sticky total-pay Section */}
       <div
-        className="total-pay bg-red-400 px-4 py-6 sticky bottom-0 left-0"
+        className="total-pay bg-teal-200 px-4 py-6 sticky bottom-0 left-0"
         style={{ zIndex: 10 }}
       >
         <div className="flex justify-between">

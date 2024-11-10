@@ -1,7 +1,9 @@
 import React from 'react';
+import PassengerInfo from './layouts/PassengerInfo';
 
 const Bookingsuccessful = () => {
     return (
+        <PassengerInfo>
         <div className="flex items-center justify-center min-h-screen bg-gray-100">
         <div className="max-w-lg p-6 bg-white border border-teal-200 rounded-lg shadow-lg">
           <h1 className="text-2xl font-semibold text-teal-600 mb-4">Booking Successful!</h1>
@@ -16,6 +18,7 @@ const Bookingsuccessful = () => {
           </p>
         </div>
       </div>
+      </PassengerInfo>
     );
   };
 
