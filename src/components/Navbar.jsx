@@ -44,6 +44,9 @@ const Navbar = () => {
                         <Link to="/chooseflight">Flight</Link>
                     </li>
                     <li>
+                        <Link to="/travelerentery">traveller Entry details</Link>
+                    </li>
+                    <li>
                         <Link to="/travelerdetails">travellerdetails</Link>
                     </li>
                 </ul>

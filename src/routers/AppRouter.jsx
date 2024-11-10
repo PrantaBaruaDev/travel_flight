@@ -3,10 +3,11 @@ import React from 'react';
 import { BrowserRouter, Routes , Route } from 'react-router-dom';
 import Home from 'src/page/Home';
 import FlightChoose from 'src/page/FlightChoose';
-import Master from 'src/page/Master';
+import Master from 'src/page/layouts/Master';
 
-import Signin from '../page/Signin';
-import Travellerdetails from '../page/Travellerdetails';
+import Signin from 'src/page/Signin';
+import Travellerdetails from 'src/page/Travellerdetails';
+import EnterTraverlDetails from 'src/page/EnterTraverlDetails';
 const AppRouter = () => {
     return (
         <BrowserRouter>
@@ -15,7 +16,8 @@ const AppRouter = () => {
                 <Route path={"/"} element={<Home />} />
                 <Route path={"/chooseflight"} element={<FlightChoose />} />
                 <Route path={"/signin"} element={<Signin/>} />
-                <Route path={"/travelerdetails"} element={<Travellerdetails/>}></Route>
+                <Route path={"/travelerentery"} element={<EnterTraverlDetails />} />
+                <Route path={"/travelerdetails"} element={<Travellerdetails />} />
             </Routes> 
             </Master>
         </BrowserRouter>

@@ -3,7 +3,8 @@
  #slider-root,
  #fly-app-root,
  #flight-choose-root,
- #book-contaxt-root {
+ #book-contaxt-root,
+ .container-root {
   max-width: 1380px;
   /* /* max-width: 1280px;  */
   margin: 0 auto;

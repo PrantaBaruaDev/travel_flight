@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
+import { flightDataContext } from './../../context/context';
 
-const FlightDetailsOverlay = ({ data }) => {
+const FlightDetailsOverlay = () => {
+    const data = useContext(flightDataContext);
+
     return (
         <div className="border-primary text-start">
             <h1 className="border-b border-gray-200 px-4 py-2 font-bold text-base">{`${data.flightDepart.city} to ${data.flightArive.city}, ${data.flightDepart.date}`}</h1>
