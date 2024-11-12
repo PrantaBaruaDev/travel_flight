@@ -9,7 +9,7 @@ import Signin from 'src/page/Signin';
 import Travellerdetails from 'src/page/Travellerdetails';
 import EnterTraverlDetails from 'src/page/EnterTraverlDetails';
 import Bookingsuccessful from '../page/Bookingsuccessful';
-
+import Payment from '../page/Payment';
 const AppRouter = () => {
     return (
         <BrowserRouter>
@@ -21,6 +21,7 @@ const AppRouter = () => {
                 <Route path={"/travelerentery"} element={<EnterTraverlDetails />} />
                 <Route path={"/travelerdetails"} element={<Travellerdetails />} />
                 <Route path={"/bookingsuccess"} element={<Bookingsuccessful />} />
+                <Route path={"/payment"} element={<Payment />} />
             </Routes> 
             </Master>
         </BrowserRouter>
