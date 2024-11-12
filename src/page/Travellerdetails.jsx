@@ -4,13 +4,17 @@ import {
     FaCheckCircle,
     FaRegClock,
     FaSuitcase,
+    FaRegTimesCircle,
+    FaRegCheckCircle,
 } from "react-icons/fa";
-import Bookingsuccessful from "./Bookingsuccessful";
 import PassengerInfo from "./layouts/PassengerInfo";
 import { useNavigate } from "react-router-dom";
 
 const TravellerDetails = () => {
     const navigate = useNavigate();
+    const [selectedBagProtection, setSelectedBagProtection] = useState("bagpc2");
+    const [selectedBagProtectServ, setSelectedBagProtectServ] = useState("bagpcp1");
+
     const [passengerDetails, setPessengerDetails] = useState([
         {
             name_title: "Mr",
@@ -33,6 +37,56 @@ const TravellerDetails = () => {
             phone: "56525646",
         },
     ]);
+
+    const handelBagProtect = (e) => {
+        setSelectedBagProtection(e.target.id);
+    };
+    const handleBagProtectServ = (e) => {
+        setSelectedBagProtectServ(e.target.id);
+    };
+
+    const baggageServeice = ({index, serviceName, servicePrice, totalPrice, defaultChecked = false}) => {
+        return (
+            <label
+                htmlFor={`bagpcp${index}`}
+                className={`p-4 border rounded-lg cursor-pointer ${
+                    selectedBagProtectServ === `bagpcp${index}`
+                        ? "border-teal-700"
+                        : "border-gray-300 hover:border-blue-500"
+                }`}
+            >
+                <p className="text-base font-medium mb-2">
+                    Bornze Service
+                </p>
+
+                <div className="flex gap-1 text-sm">
+                    <FaRegCheckCircle className="text-gray-500 text-2xl mr-2" />
+                    <div>
+                        <p className="mb-1">{serviceName}</p>
+                        <p className="text-slate-600">BDT <span className="text-black">
+                            {`${parseInt(servicePrice).toLocaleString()}`}
+                        </span></p>
+                    </div>
+                </div>
+                <hr className="my-1" />
+
+                <div className="label">
+                    <input
+                        type="radio"
+                        id={`bagpcp${index}`}
+                        name="bag_protect_serv"
+                        value={""}
+                        className="radio checked:bg-teal-700"
+                        onChange={handleBagProtectServ}
+                        defaultChecked={defaultChecked}
+                    />
+                    <p className="text-slate-600">BDT <span className="font-medium text-black">
+                        {`${parseInt(totalPrice).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
+                    </span></p>
+                </div>
+            </label>
+        );
+    };
 
     return (
         <PassengerInfo>
@@ -69,7 +123,9 @@ const TravellerDetails = () => {
                                     {item.dob}
                                 </p>
                                 <p>
-                                    <span className="font-medium">Country : </span>
+                                    <span className="font-medium">
+                                        Country :{" "}
+                                    </span>
                                     {item.country}
                                 </p>
                                 {item.age_type !== "Child" &&
@@ -99,7 +155,7 @@ const TravellerDetails = () => {
                     Add Ons
                 </h1>
 
-                <div className="max-w-2xl w-full mx-auto my-6 p-4 border border-gray-200 rounded-lg shadow-lg bg-white">
+                <div className="w-full mx-auto my-6 p-4 border border-gray-200 rounded-lg shadow-lg bg-white">
                     {/* <h2 className="text-red-500 text-sm font-semibold mb-2">
                         Add Ons
                     </h2> */}
@@ -151,27 +207,100 @@ const TravellerDetails = () => {
                     </p>
 
                     {/* Plan Options with Equal Width */}
-                    <div className="flex gap-4 mb-6">
-                        <div className="flex-1 basis-1/2 p-4 border border-gray-300 rounded-lg cursor-pointer hover:border-blue-500">
-                            <div className="flex items-center mb-2">
+                    <div className="grid grid-flow-row grid-cols-3 gap-4 mb-6">
+                        <label
+                            htmlFor={`bagpc1`}
+                            className={`p-4 border rounded-lg cursor-pointer ${
+                                selectedBagProtection === "bagpc1"
+                                    ? "border-teal-700 bg-teal-50"
+                                    : "border-gray-300 hover:border-blue-500"
+                            }`}
+                        >
+                            <div className="label">
                                 <FaSuitcase className="text-gray-500 text-2xl mr-2" />
-                                <span className="font-medium text-sm">
-                                    Insure My Baggage With
-                                </span>
+
+                                <input
+                                    type="radio"
+                                    id={`bagpc1`}
+                                    name="bag_protection"
+                                    value={""}
+                                    className="radio checked:bg-teal-700"
+                                    onChange={handelBagProtect}
+                                />
                             </div>
-                            <p className="text-gray-600 text-sm">
+
+                            <span
+                                className={`font-medium text-sm ${
+                                    selectedBagProtection === "bagpc1"
+                                        ? "text-teal-700"
+                                        : ""
+                                }`}
+                            >
+                                Insure My Baggage With
+                            </span>
+                            <p className="text-gray-600 text-base font-medium">
                                 Blue Ribbon Bags
                             </p>
-                        </div>
-                        <div className="flex-1 basis-1/2 p-4 border border-red-500 bg-red-50 rounded-lg cursor-pointer hover:border-red-600">
-                            <p className="font-medium text-sm mb-2 text-red-600">
+                        </label>
+
+                        <label
+                            htmlFor={`bagpc2`}
+                            className={`p-4 border rounded-lg cursor-pointer ${
+                                selectedBagProtection === "bagpc2"
+                                    ? "border-teal-700 bg-teal-50"
+                                    : "border-gray-300 hover:border-blue-500"
+                            }`}
+                        >
+                            <div className="label">
+                                <FaRegTimesCircle className="text-gray-500 text-2xl mr-2" />
+                                <input
+                                    type="radio"
+                                    id={`bagpc2`}
+                                    name="bag_protection"
+                                    value={""}
+                                    className="radio checked:bg-teal-700"
+                                    onChange={handelBagProtect}
+                                    defaultChecked
+                                />
+                            </div>
+                            <span
+                                className={`font-medium text-sm ${
+                                    selectedBagProtection === "bagpc2"
+                                        ? "text-teal-700"
+                                        : ""
+                                }`}
+                            >
                                 I Do Not Require
-                            </p>
-                            <p className="text-gray-600 text-sm">
+                            </span>
+                            {/* </div> */}
+                            <p className="text-gray-600 text-base font-medium">
                                 Baggage Protection
                             </p>
+                        </label>
+                    </div>
+
+                    {/* Overaly Service section only active 'Blue Ribbon Bags'  */}
+                    {selectedBagProtection === 'bagpc1' && 
+                    <div className="mb-6">
+                        <div className="label mt-6">
+                            <h1 className="text-lg font-medium">
+                                Select Plane
+                            </h1>
+                            <a className="link text-primary">
+                                Terms & Conditions
+                            </a>
+                        </div>
+                        <div className="grid grid-flow-row grid-cols-3 gap-4">
+                            {baggageServeice({
+                                index: 1,
+                                defaultChecked: true,
+                                serviceName: "Baggage Coverage",
+                                servicePrice: 19000,
+                                totalPrice: 95.00,
+                            })}
                         </div>
                     </div>
+                    }
 
                     {/* Footer with Buttons */}
                     <p className="text-xs text-gray-500 text-center mb-4">

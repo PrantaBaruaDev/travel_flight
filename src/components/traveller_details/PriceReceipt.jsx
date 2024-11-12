@@ -100,7 +100,7 @@ const PriceReceipt = ({ isSticky }) => {
               <p className="text-sm">
                 BDT{" "}
                 <span className="text-lg font-semibold">
-                  {`${parseInt(totalPayment).toLocaleString()}.00`}
+                  {`${parseInt(totalPayment).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
                 </span>
               </p>
             </div>
@@ -118,7 +118,7 @@ const PriceReceipt = ({ isSticky }) => {
           <p className="text-sm">
             BDT{" "}
             <span className="text-lg font-semibold">
-              {`${parseInt(totalPayment).toLocaleString()}.00`}
+              {`${parseInt(totalPayment).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
             </span>
           </p>
         </div>
