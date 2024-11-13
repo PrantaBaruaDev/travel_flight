@@ -1,8 +1,8 @@
-import React, { useContext } from "react";
-import { flightDataContext } from "src/context/context";
+import React from "react";
+import useFlightData from "src/hooks/useFlightData";
 
 const ReviewBooking = () => {
-    const data = useContext(flightDataContext);
+    const { flightData: data } = useFlightData();
 
     return (
         <div className="card bg-white shadow-xl px-4 py-5 mb-5 rounded-xl">

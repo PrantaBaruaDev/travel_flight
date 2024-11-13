@@ -13,16 +13,20 @@ import Bookingsuccessful from '../page/Bookingsuccessful';
 const AppRouter = () => {
     return (
         <BrowserRouter>
-            <Master>
             <Routes>
-                <Route path={"/"} element={<Home />} />
-                <Route path={"/chooseflight"} element={<FlightChoose />} />
+                {/* Outside the master Layout */}
                 <Route path={"/signin"} element={<Signin/>} />
-                <Route path={"/travelerentery"} element={<EnterTraverlDetails />} />
-                <Route path={"/travelerdetails"} element={<Travellerdetails />} />
-                <Route path={"/bookingsuccess"} element={<Bookingsuccessful />} />
-            </Routes> 
-            </Master>
+
+                {/* Inside the master Layout */}
+                <Route element={<Master/ >}>
+                    <Route path={"/"} element={<Home />} />
+                    <Route path={"/chooseflight"} element={<FlightChoose />} />
+                    <Route path={"/travelerentery"} element={<EnterTraverlDetails />} />
+                    <Route path={"/travelerentery/:id"} element={<EnterTraverlDetails />} />
+                    <Route path={"/travelerdetails"} element={<Travellerdetails />} />
+                    <Route path={"/bookingsuccess"} element={<Bookingsuccessful />} />
+                </Route> 
+            </Routes>
         </BrowserRouter>
     );
 };

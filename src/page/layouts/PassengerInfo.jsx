@@ -3,7 +3,7 @@ import ReviewBooking from "src/components/traveller_details/ReviewBooking";
 import DataContextMaster from "src/page/layouts/DataContextMaster";
 import PriceReceipt from "src/components/traveller_details/PriceReceipt";
 
-const PassengerInfo = ({ children }) => {
+const PassengerInfo = ({ flightID, children }) => {
     const [isSticky, setIsSticky] = useState(false);
 
     const handleScroll = () => {
@@ -23,7 +23,7 @@ const PassengerInfo = ({ children }) => {
     }, []);
 
     return (
-        <DataContextMaster>
+        <DataContextMaster setFlightId={flightID}>
             <div className="container-root">
                 <div className="grid grid-flow-col gap-7">
                     <div className="col-span-10">

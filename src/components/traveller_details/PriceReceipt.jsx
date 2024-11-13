@@ -1,8 +1,9 @@
-import React, { useContext, useEffect, useState } from "react";
-import { flightDataContext } from "src/context/context";
+import React, { useEffect, useState } from "react";
+import useFlightData from "src/hooks/useFlightData";
 
 const PriceReceipt = ({ isSticky }) => {
-  const data = useContext(flightDataContext);
+  const { flightData: data } = useFlightData();
+
   const [booking, setBooking] = useState({
     adult: { passenger: 2, base_fare: 3130, fees: 988 },
     children: { passenger: 3, base_fare: 2347.34, fees: 851.67 },

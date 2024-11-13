@@ -1,6 +1,7 @@
 import React from 'react';
 import Navbar from "src/components/Navbar";
 import Footer from 'src/components/Footer';
+import { Outlet } from 'react-router-dom';
 
 const Master = ({children}) => {
     return (
@@ -8,7 +9,9 @@ const Master = ({children}) => {
             <header id='header-root'>
                 <Navbar/>             
             </header>
-            <main>{children}</main>
+            <main>
+                <Outlet />
+            </main>
             <footer>
                 <Footer />
             </footer>
