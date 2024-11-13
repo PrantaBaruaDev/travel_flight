@@ -1,27 +1,29 @@
 import React, { useEffect, useRef, useState } from "react";
 
-import Location from "src/data/location.json";
-
 const SelectInput = (props) => {
     const [isOverlayVisible, setOverlayVisible] = useState(false);
     const [isActive, setActive] = useState(false);
     const overlayRef = useRef(null);
     const buttonRef = useRef(null);
 
+    const [counters, setCounters] = useState({
+        adults: 0,
+        kids: 0,
+        children: 0,
+        infants: 0,
+    });
+
+    const classOptions = [
+        { id: "econ", label: "Economy", value: "Economy" },
+        { id: "premecon", label: "Premium Economy", value: "Premium Economy" },
+        { id: "business", label: "Business", value: "Business" },
+        { id: "fclass", label: "First Class", value: "First Class" },
+    ];
+
     const [selectData, setSelectData] = useState({
-        value: "0",
+        value: 0,
         smvalue: "Economy",
     });
-
-    const [data, setData] = useState({
-        location: Location,
-    });
-
-    // Separate states for each category
-    const [adultCount, setAdultCount] = useState(0);
-    const [childrenCount, setChildrenCount] = useState(0);
-    const [kidsCount, setKidsCount] = useState(0);
-    const [infantCount, setInfantCount] = useState(0);
 
     // Function to toggle overlay visibility
     const toggleOverlay = () => {
@@ -41,15 +43,6 @@ const SelectInput = (props) => {
         }
     };
 
-    const handleSelection = (item) => {
-        setSelectData({
-            value: item.city,
-            smvalue: item.airport_name,
-        });
-        setOverlayVisible(false);
-        setActive(false);
-    };
-
     useEffect(() => {
         document.addEventListener("mousedown", handleClickOutside);
         return () => {
@@ -57,21 +50,111 @@ const SelectInput = (props) => {
         };
     }, []);
 
+    useEffect(() => {
+        const total =
+            counters.adults +
+            counters.kids +
+            counters.children +
+            counters.infants;
+        setSelectData((prevData) => ({
+            ...prevData,
+            value: total,
+        }));
+    }, [counters]);
+
+    const handleClassTypeChange = (e) => {
+        setSelectData((prev) => ({
+          ...prev,
+          smvalue: e.target.value,
+        }));
+    };
+    
     const handleMouseDown = (e) => {
         e.preventDefault();
     };
 
     // Increment and decrement handlers for each category
-    const handleIncrement = (setCount) => {
-        setCount((prevCount) => prevCount + 1);
+    const handleIncrement = (counterType) => {
+        setCounters((prev) => ({
+            ...prev,
+            [counterType]: prev[counterType] + 1,
+        }));
     };
 
-    const handleDecrement = (setCount) => {
-        setCount((prevCount) => (prevCount > 0 ? prevCount - 1 : 0));
+    const handleDecrement = (counterType) => {
+        setCounters((prev) => ({
+            ...prev,
+            [counterType]: prev[counterType] > 0 ? prev[counterType] - 1 : 0,
+        }));
+    };
+
+
+    const passengerCounter = ({
+        label,
+        agelimit,
+        pass_count,
+        counter_value,
+    }) => {
+        return (
+            <div className="flex items-center justify-between px-5 py-2 gap-4">
+                <div className="border-b-gray-400 text-black">
+                    <h6 className="font-bold text-gray-400">{label}</h6>
+                    <h6 className="text-black font-thin">{agelimit}</h6>
+                </div>
+
+                <div className="text-left">
+                    <button
+                        type="button"
+                        className="btn btn-square text-primary"
+                        onClick={() => handleIncrement(pass_count)}
+                    >
+                        {/* Increment Button Icon */}
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="h-6 w-6"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                        >
+                            <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth="2"
+                                d="M12 4v16m8-8H4"
+                            />
+                        </svg>
+                    </button>
+                    <span className="text-primary -mt-4 font-bold text-xl ml-4 mr-4">
+                        {counter_value}
+                    </span>
+                    <button
+                        type="button"
+                        className="btn btn-square text-primary"
+                        onClick={() => handleDecrement(pass_count)}
+                    >
+                        {/* Decrement Button Icon */}
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="h-6 w-6"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                        >
+                            <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth="2"
+                                d="M5 12h14"
+                            />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        );
     };
 
     return (
-        <div className="field-wrapper">
+        <div className="relative">
             <div
                 ref={buttonRef}
                 className={`search-input-button text-gray-600 border-2 rounded-xl w-fit pl-5 pr-5 py-3 cursor-pointer border-teal-700 bg-white ${
@@ -97,235 +180,70 @@ const SelectInput = (props) => {
             </div>
 
             {isOverlayVisible && (
-                <div ref={overlayRef} className="overlay-styles w-fit">
-                    <div className="bg-white drop-shadow-2xl py-2 rounded-xl">
-                        <div className="flex align-middle px-5 py-2 border-b-2 border-b-gray-400 text-black">
-                            <div className="w-20 text-start text-red-500 m-0 mr-3">
-                                <h6>Travelers</h6>
-                            </div>
-                        </div>
+                <div ref={overlayRef} className="absolute z-[999999] left-0 xl:left-[-145px]">
+                    <div className="bg-white drop-shadow-2xl py-2 w-[400px] rounded-xl">
+                        <h6 className="font-bold text-start text-primary mb-3 px-5 py-4 border-b-2 border-b-gray-400">
+                            Travelers
+                        </h6>
+
                         <div className="search-input-container text-gray-600 h-80 overflow-y-auto">
                             {/* Adult Section */}
-                            <div className="flex align-middle px-5 py-2 border-b-gray-400 text-black">
-                                <div className="w-[30px] font-bold text-gray-400 m-0 mr-3">
-                                    <h6>Adults</h6>
-                                </div>
-                            </div>
-                            <div className="w-full flex text-left ml-5 -mt-2 ">
-                                <h6 className="text-black mr-[27px] font-thin">12 years and above</h6>
-                                <button className="btn btn-square ml-4 -mt-6 text-red-600 w-10 h-10" onClick={() => handleIncrement(setAdultCount)}>
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        className="h-6 w-6"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        stroke="currentColor"
-                                    >
-                                        <path
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            strokeWidth="2"
-                                            d="M12 4v16m8-8H4"
-                                        />
-                                    </svg>
-                                </button>
-                                <span className="text-red-600 -mt-4 font-bold text-xl ml-4 mr-4">
-                                    {adultCount}
-                                </span>
-                                <button className="btn btn-square -mt-6 text-red-600 w-10 h-10" onClick={() => handleDecrement(setAdultCount)}>
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        className="h-6 w-6"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        stroke="currentColor"
-                                    >
-                                        <path
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            strokeWidth="2"
-                                            d="M5 12h14"
-                                        />
-                                    </svg>
-                                </button>
-                            </div>
+                            {passengerCounter({
+                                label: "Adults",
+                                agelimit: "12 years and above",
+                                pass_count: "adults",
+                                counter_value: counters.adults,
+                            })}
 
-                            {/* Repeat for Children, Kids, and Infant Sections with their counters */}
-                            <div className="flex align-middle px-5 py-2 border-b-gray-400 text-black">
-                                <div className="w-[30px] font-bold text-gray-400 m-0 mr-3">
-                                    <h6>Children</h6>
-                                </div>
-                            </div>
-                            <div className="w-full flex text-left ml-5 -mt-2 ">
-                                <h6 className="text-black font-thin">5 years - under 12 years</h6>
-                                <button className="btn btn-square ml-3 -mt-6 text-red-600 w-10 h-10" onClick={() => handleIncrement(setChildrenCount)}>
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        className="h-6 w-6"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        stroke="currentColor"
-                                    >
-                                        <path
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            strokeWidth="2"
-                                            d="M12 4v16m8-8H4"
-                                        />
-                                    </svg>
-                                </button>
-                                <span className="text-red-600 -mt-4 font-bold text-xl ml-4 mr-4">
-                                    {childrenCount}
-                                </span>
-                                <button className="btn btn-square -mt-6 text-red-600 w-10 h-10" onClick={() => handleDecrement(setChildrenCount)}>
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        className="h-6 w-6"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        stroke="currentColor"
-                                    >
-                                        <path
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            strokeWidth="2"
-                                            d="M5 12h14"
-                                        />
-                                    </svg>
-                                </button>
-                            </div>
+                            {/* Children Section */}
+                            {passengerCounter({
+                                label: "Children",
+                                agelimit: "5 years - under 12 years",
+                                pass_count: "children",
+                                counter_value: counters.children,
+                            })}
 
                             {/* Kids Section */}
-                            <div className="flex align-middle px-5 py-2 border-b-gray-400 text-black">
-                                <div className="w-[30px] font-bold text-gray-400 m-0 mr-3">
-                                    <h6>Kids</h6>
-                                </div>
-                            </div>
-                            <div className="w-full flex text-left ml-5 -mt-2 ">
-                                <h6 className="text-black font-thin">2 years - under 5 years</h6>
-                                <button className="btn btn-square ml-4 -mt-6 text-red-600 w-10 h-10" onClick={() => handleIncrement(setKidsCount)}>
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        className="h-6 w-6"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        stroke="currentColor"
-                                    >
-                                        <path
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            strokeWidth="2"
-                                            d="M12 4v16m8-8H4"
-                                        />
-                                    </svg>
-                                </button>
-                                <span className="text-red-600 -mt-4 font-bold text-xl ml-4 mr-4">
-                                    {kidsCount}
-                                </span>
-                                <button className="btn btn-square -mt-6 text-red-600 w-10 h-10" onClick={() => handleDecrement(setKidsCount)}>
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        className="h-6 w-6"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        stroke="currentColor"
-                                    >
-                                        <path
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            strokeWidth="2"
-                                            d="M5 12h14"
-                                        />
-                                    </svg>
-                                </button>
-                            </div>
+                            {passengerCounter({
+                                label: "Kids",
+                                agelimit: "2 years - under 5 years",
+                                pass_count: "kids",
+                                counter_value: counters.kids,
+                            })}
 
                             {/* Infant Section */}
-                            <div className="flex align-middle px-5 py-2 border-b-gray-400 text-black">
-                                <div className="w-[30px] font-bold text-gray-400 m-0 mr-3">
-                                    <h6>Infant</h6>
-                                </div>
-                            </div>
-                            <div className="w-full flex text-left ml-5 -mt-2 ">
-                                <h6 className="text-black font-thin mr-[62px]">Below 2 years</h6>
-                                <button className="btn btn-square ml-4 -mt-6 text-red-600 w-10 h-10" onClick={() => handleIncrement(setInfantCount)}>
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        className="h-6 w-6"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        stroke="currentColor"
+                            {passengerCounter({
+                                label: "Infant",
+                                agelimit: "Below 2 years",
+                                pass_count: "infants",
+                                counter_value: counters.infants,
+                            })}
+
+                            {/* boooooooking class step code */}
+                            <h6 className="font-bold text-start text-primary mb-3 px-5 py-4 border-b-2 border-b-gray-400">
+                                Booking class
+                            </h6>
+
+                            <div className="grid grid-flow-row grid-cols-2 gap-4 ml-4 pr-2 pb-4">
+                                {classOptions.map((option, key) => (
+                                    <label
+                                        key={option.id}
+                                        htmlFor={option.id}
+                                        className="flex items-center gap-2 cursor-pointer"
                                     >
-                                        <path
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            strokeWidth="2"
-                                            d="M12 4v16m8-8H4"
+                                        <input
+                                            id={option.id}
+                                            name="classType"
+                                            type="radio"
+                                            value={option.value}
+                                            className="radio radio-success"
+                                            onChange={handleClassTypeChange}
+                                            defaultChecked={key === 0}
                                         />
-                                    </svg>
-                                </button>
-                                <span className="text-red-600 -mt-4 font-bold text-xl ml-4 mr-4">
-                                    {infantCount}
-                                </span>
-                                <button className="btn btn-square -mt-6 text-red-600 w-10 h-10" onClick={() => handleDecrement(setInfantCount)}>
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        className="h-6 w-6"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        stroke="currentColor"
-                                    >
-                                        <path
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            strokeWidth="2"
-                                            d="M5 12h14"
-                                        />
-                                    </svg>
-                                </button>
+                                        {option.label}
+                                    </label>
+                                ))}
                             </div>
-  {/* boooooooking class step code */}
-                            <div className="bg-white py-2 rounded-xl">
-                        <div className="flex align-middle px-5 py-2 border-b-2 border-b-gray-400 text-black">
-                            <div className="w-20 flex-1 text-start text-red-500 m-0 mr-3">
-                                <h6>Booking class</h6>
-                            </div>
-                        </div>
-                        </div>
-
-                        <div className="flex gap-4 ml-4">
-                        <input
-                        type="checkbox"
-                        defaultChecked
-                        className="checkbox border-red-600 bg-red-600 [--chkfg:white] checked:border-red-600"
-                        />
-                        <h4 className="-ml-3">Economy</h4>
-                        <input
-                        type="checkbox"
-                        defaultChecked
-                        className="checkbox border-red-600 bg-red-600 [--chkfg:white] checked:border-red-600"
-                        />
-                        <h4 className="-ml-3">Premium Economy</h4>
-                        </div>
-
-                        <div className="flex gap-4 ml-4 mt-4">
-                        <input
-                        type="checkbox"
-                        defaultChecked
-                        className="checkbox border-red-600 bg-red-600 [--chkfg:white] checked:border-red-600"
-                        />
-                        <h4 className="-ml-3">Business</h4>
-                        <input
-                        type="checkbox"
-                        defaultChecked
-                        className="checkbox ml-[5px] border-red-600 bg-red-600 [--chkfg:white] checked:border-red-600"
-                        />
-                        <h4 className="-ml-3">First Class </h4>
-                        </div>
-
-
-
-               
                         </div>
                     </div>
                 </div>
@@ -335,5 +253,3 @@ const SelectInput = (props) => {
 };
 
 export default SelectInput;
-
-

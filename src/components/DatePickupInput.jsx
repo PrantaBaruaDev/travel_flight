@@ -22,7 +22,7 @@ const DatePickupInput = ({ label, style }) => {
 
     return (
         <div
-            className={`search-input-button w-fit text-gray-600 border-gray-200 border rounded-xl h-fit pl-5 pr-5 py-3 cursor-pointer ${
+            className={`search-input-button w-fit text-gray-600 border-2 border-teal-700 rounded-xl h-fit pl-5 pr-5 py-3 cursor-pointer ${
                 isActive ? "bg-gray-100" : "bg-white"
             } ${style}`}
             onClick={handleContainerClick}
