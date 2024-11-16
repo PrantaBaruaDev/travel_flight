@@ -6,7 +6,7 @@ import { Outlet } from 'react-router-dom';
 const Master = ({children}) => {
     return (
         <div className='master-page'>
-            <header id='header-root'>
+            <header className='header-root'>
                 <Navbar/>             
             </header>
             <main>
