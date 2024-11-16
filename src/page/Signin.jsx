@@ -1,21 +1,23 @@
 import React from "react";
 import { FaKey, FaEnvelope } from "react-icons/fa";
-import planeim from "src/assets/logback.jpg";
-
+import bg from "src/assets/a_modern.jpg";
+import { Link } from 'react-router-dom';
 const Signin = () => {
     return (
-        <div className="px-0 sm:px-2 lg:px-[130px] w-full h-screen flex items-center justify-center bg-teal-700">
+        <div className="px-0 sm:px-2 lg:px-[130px] w-full h-screen flex  items-center justify-center bg-teal-700">
             <div
                 className="w-full h-[100vh] sm:h-[90vh] xs:h-[100vh] lg:h-[90vh] mb-8 rounded-xl shadow-xl flex items-center justify-center"
                 style={{
-                    backgroundImage: `url(${planeim})`,
+                    backgroundImage: `url(${bg})`,
                     backgroundSize: "cover",
                     backgroundPosition: "center",
                     backgroundRepeat: "no-repeat",
                 }}
             >
-                <div className="card glass w-[550px] h-fit flex flex-col p-8 rounded-xl shadow-xl space-y-6 bg-opacity-80">
-                    {/* Email Address */}
+               <div className="card glass w-[550px] h-fit flex flex-col p-8 rounded-xl shadow-xl space-y-6 bg-opacity-50 backdrop-blur">
+    {/* Email Address */}
+
+
                     <div className="flex flex-col text-left">
                         <label className="mb-2 font-medium">
                             Email Address
@@ -45,10 +47,10 @@ const Signin = () => {
 
                     {/* Remember Me & Forgot Password */}
                     <div className="flex items-center justify-between">
-                        <label className="flex label-text items-center">
+                        <label className="flex label-text font-semibold  items-center">
                             <input
                                 type="checkbox"
-                                className="mr-2 checkbox checkbox-primary text-red-600 h-5 w-5"
+                                className="mr-2 checkbox  checkbox-primary text-red-600 h-5 w-5"
                             />
                             Remember me
                         </label>
@@ -104,9 +106,9 @@ const Signin = () => {
                     {/* Create Account Link */}
                     <p className="text-center text-white text-sm mt-4">
                         Don't have a Flight Expert Account yet?
-                        <a href="#" className="text-red-600 font-medium ml-1">
+                        <Link to={"/account"} className="text-red-600 font-medium ml-1">
                             Create an Account
-                        </a>
+                        </Link>
                     </p>
                 </div>
             </div>

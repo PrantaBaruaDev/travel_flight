@@ -10,13 +10,14 @@ import Travellerdetails from 'src/page/Travellerdetails';
 import EnterTraverlDetails from 'src/page/EnterTraverlDetails';
 import Bookingsuccessful from '../page/Bookingsuccessful';
 import Payment from '../page/Payment';
+import Createaccount from '../page/Createaccount';
 const AppRouter = () => {
     return (
         <BrowserRouter>
             <Routes>
                 {/* Outside the master Layout */}
                 <Route path={"/signin"} element={<Signin/>} />
-
+                <Route path={"/account"} element={<Createaccount />} />
                 {/* Inside the master Layout */}
                 <Route element={<Master/ >}>
                     <Route path={"/"} element={<Home />} />
@@ -26,6 +27,7 @@ const AppRouter = () => {
                     <Route path={"/travelerdetails"} element={<Travellerdetails />} />
                     <Route path={"/bookingsuccess"} element={<Bookingsuccessful />} />
                     <Route path={"/payment"} element={<Payment />} />
+                   
                 </Route> 
             </Routes>
         </BrowserRouter>
