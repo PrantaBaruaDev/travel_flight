@@ -52,6 +52,9 @@ const Navbar = () => {
                     <li>
                         <Link to="/Payment">Payment</Link>
                     </li>
+                    <li>
+                        <Link to="/account">create account</Link>
+                    </li>
                 </ul>
             </nav>
         </div>
