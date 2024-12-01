@@ -11,6 +11,7 @@ import EnterTraverlDetails from 'src/page/EnterTraverlDetails';
 import Bookingsuccessful from '../page/Bookingsuccessful';
 import Payment from '../page/Payment';
 import Createaccount from '../page/Createaccount';
+import TeamMember from 'src/components/TeamMember';
 const AppRouter = () => {
     return (
         <BrowserRouter>
@@ -27,6 +28,7 @@ const AppRouter = () => {
                     <Route path={"/travelerdetails"} element={<Travellerdetails />} />
                     <Route path={"/bookingsuccess"} element={<Bookingsuccessful />} />
                     <Route path={"/payment"} element={<Payment />} />
+                    <Route path={"/team"} element={<TeamMember />} />
                    
                 </Route> 
             </Routes>
