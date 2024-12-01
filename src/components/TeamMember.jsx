@@ -3,7 +3,7 @@ import React from "react";
 const TeamMember = () => {
     return (
         <div className="container-root h-[50vh]">
-            <h1 className="font-bold text-3xl">Team member</h1>
+            <h1 className="font-bold text-3xl">Group No - 2 Team member</h1>
             <div className="flex flex-wrap w-full gap-3">
                 <div className="card bg-base-100 w-96 shadow-xl">
                     <div className="card-body items-center text-center">
