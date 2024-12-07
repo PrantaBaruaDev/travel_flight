@@ -66,7 +66,9 @@ const Signin = () => {
                                 Forgot Password?
                             </a>
                         </div>
-
+                        <button className="w-full bg-teal-700 text-white font-medium py-2 rounded-lg hover:bg-teal-500">
+                            Sign in
+                        </button>
                     {/* Create Account Link */}
                     <p className="text-center text-white text-sm mt-4">
                         Don't have a Flight Expert Account yet?
