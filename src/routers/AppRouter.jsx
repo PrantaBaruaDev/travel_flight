@@ -19,7 +19,7 @@ import Admin from "../admin/layouts/Admin";
 // views
 import Dashboard from "src/admin/views/admin/Dashboard";
 import Settings from "src/admin/views/admin/Settings";
-// import Tables from "src/admin/views/admin/Tables";
+import Tables from "src/admin/views/admin/Tables";
 import Flights from "src/admin/AAdmin/Flights";
 import Airlines  from "src/admin/AAdmin/Airlines";
 import Airports  from "src/admin/AAdmin/Airports";
@@ -70,7 +70,7 @@ const AppRouter = () => {
                     <Route path="/admin/payments" element={<Payments />} />
                     <Route path="/admin/resarvation" element={<Resarvation />} />
                     <Route path="/admin/seats" element={<Seats />} />
-                    {/* <Route path="/admin/tables" element={<Tables />} /> */}
+                    <Route path="/admin/tables" element={<Tables />} />
                     {/* <Redirect from="/admin" to="/admin/dashboard" /> */}
                 </Route>
             </Routes>
