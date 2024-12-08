@@ -59,7 +59,6 @@ const UserDropdown = () => {
               className="w-full rounded-full align-middle border-none shadow-lg"
               src={TeamMember}
             />
-            image
           </span>
         </div>
       </div>
