@@ -55,6 +55,9 @@ const Navbar = () => {
                     <li>
                         <Link to="/account">create account</Link>
                     </li>
+                    <li>
+                        <Link to="/flight">flights</Link>
+                    </li>
                 </ul>
             </nav>
         </div>
