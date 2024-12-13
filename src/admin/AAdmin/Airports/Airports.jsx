@@ -1,26 +1,51 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import useApiService from 'src/services/useApiService';
 
-const Airports = () => {
-  const [formData, setFormData] = useState({
-    airport_id: "",
-    airport_code: "",
-    name: "",
-    city: "",
-    country: "",
-    facilities: "",
-  });
+
+const initialState = {
+  airport_id: "",
+  airport_code: "",
+  name: "",
+  city: "",
+  country: "",
+  facilities: "",
+};
+
+const Airports = (props) => {
+  const [formData, setFormData] = useState(initialState);
+
+  const route = "/airports";
+  const { data, loading, setLoading, error, fetchData, createData, updateData } = useApiService();
+
+  (props.page === 'Edit') && (initialState.id = 0);
+
+  useEffect(() => {
+    // Fetch data when the component loads
+    fetchData(route);
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+
     setFormData((prev) => ({
       ...prev,
       [name]: value,
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Airport Data Submitted:", formData);
+    setLoading(true);
+    try {
+      const createdItem = await createData(route, formData);
+      console.log("Created:", createdItem);
+    } catch (err) {
+      console.error("Error creating item:", err);
+    }
+    setFormData(initialState);
+    setLoading(false);
+    console.log("Form Data Submitted.");
+    console.log("Stored data", data);
   };
 
   return (
@@ -33,6 +58,10 @@ const Airports = () => {
         background: "linear-gradient(90deg, #f7f7f7, #e9f7f9)",
       }}
     >
+
+      {loading && <p>Loading...</p>}
+      {error && <p>{error}</p>}
+
       <form
         onSubmit={handleSubmit}
         style={{

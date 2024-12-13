@@ -1,17 +1,51 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import useApiService from "src/services/useApiService";
+import Notification from 'src/hooks/Notification';
 
-const Flights = () => {
-  const [formData, setFormData] = useState({
-    flight_id: "",
-    airline_id: "",
-    flight_number: "",
-    departure_airport_code: "",
-    arrival_airport_code: "",
-    departure_time: "",
-    arrival_time: "",
-    price: "",
-    status: "",
-  });
+const initialState = {
+  airline_id: "",
+  flight_num: "",
+  departure_airport_code: "",
+  arrival_airport_code: "",
+  departure_time: "",
+  arrival_time: "",
+  price: "",
+  status: "",
+}
+const Flights = (props) => {
+  const { id } = useParams();
+  const numericId = id ? parseInt(id, 10) : null;
+  const [formData, setFormData] = useState(initialState);
+  const [notificationMessage, setNotificationMessage] = useState("");
+
+  const route = "/flights";
+  const { data, loading, setLoading, error, fetchData, createData, updateData } = useApiService();
+
+  useEffect(() => {
+    // Fetch data when the component loads, only in Edit mode
+    if (props.page === "Edit" && numericId) {
+      initialState.id = "";
+      const fetchFlight = async () => {
+        try {
+          await fetchData(route, numericId);
+        } catch (err) {
+          console.error("Error fetching flight data:", err);
+        }
+      };
+      fetchFlight();
+    }
+  }, [props.page, numericId, route]);
+  
+  // Sync formData with data when data is available
+  useEffect(() => {
+    if (props.page === "Edit" && data) {
+      setFormData((prev) => ({
+        ...prev,
+        ...data,
+      }));
+    }
+  }, [data, props.page]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -22,9 +56,23 @@ const Flights = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form Data Submitted:", formData);
+    setLoading(true);
+    try {
+      if(props.page === "Edit") {
+        const updateItem = await updateData(`${route}/${numericId}`, formData);
+        setNotificationMessage("Update Successful");
+      } else {
+        const createdItem = await createData(route, formData);
+        setNotificationMessage("Create Successful");
+        setFormData(initialState);
+      }
+
+    } catch (err) {
+      console.error("Error creating item:", err);
+    }
+    setLoading(false);
   };
 
   return (
@@ -47,6 +95,7 @@ const Flights = () => {
           width: "350px",
         }}
       >
+        {error && <p>{error}</p>}
         <h3
           style={{
             textAlign: "center",
@@ -57,15 +106,16 @@ const Flights = () => {
         >
           Flight Information
         </h3>
-
-        <div style={{ marginBottom: "15px" }}>
+        {(props.page === 'Edit') && 
+         <div style={{ marginBottom: "15px" }}>
           <label style={{ display: "block", marginBottom: "5px" }}>Flight ID:</label>
           <input
             type="number"
-            name="flight_id"
-            value={formData.flight_id}
+            name="id"
+            value={formData.id || ""}
             onChange={handleChange}
             required
+            disabled
             style={{
               width: "100%",
               padding: "8px",
@@ -73,7 +123,7 @@ const Flights = () => {
               borderRadius: "5px",
             }}
           />
-        </div>
+        </div> }
 
         <div style={{ marginBottom: "15px" }}>
           <label style={{ display: "block", marginBottom: "5px" }}>Airline ID:</label>
@@ -96,8 +146,8 @@ const Flights = () => {
           <label style={{ display: "block", marginBottom: "5px" }}>Flight Number:</label>
           <input
             type="text"
-            name="flight_number"
-            value={formData.flight_number}
+            name="flight_num"
+            value={formData.flight_num}
             onChange={handleChange}
             maxLength="20"
             required
@@ -219,10 +269,10 @@ const Flights = () => {
             <option value="" disabled>
               Select Status
             </option>
-            <option value="scheduled">Scheduled</option>
-            <option value="delayed">Delayed</option>
-            <option value="canceled">Canceled</option>
-            <option value="completed">Completed</option>
+            <option value="1">Scheduled</option>
+            <option value="2">Delayed</option>
+            <option value="3">Canceled</option>
+            <option value="4">Completed</option>
           </select>
         </div>
 
@@ -237,12 +287,35 @@ const Flights = () => {
             borderRadius: "5px",
             cursor: "pointer",
           }}
+          disabled={loading}
         >
-          Submit
+          {loading ? "Submitting..." : (props.page === "Edit") ? "Edit": "Submit"}
         </button>
       </form>
+
+      {notificationMessage && <Notification message={notificationMessage} />}
     </div>
   );
 };
 
 export default Flights;
+
+
+
+ 
+
+
+  /* useEffect(() => {
+    // Fetch data when the component loads
+    if(props.page === 'Edit'){
+      const fetchFlight = async () => {
+        try {
+          await fetchData(route, numericId);
+          setFormData(data); // Set formData with the fetched flight data
+        } catch (err) {
+          console.error("Error fetching flight data:", err);
+        }
+      };
+      fetchFlight();
+    }
+  }, [props.page, numericId, route, fetchData, data]); */
