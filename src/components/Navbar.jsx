@@ -36,7 +36,7 @@ const Navbar = () => {
                 </div>
             </div>
             <nav>
-                <ul>
+                <ul className="flex items-center gap-4">
                     <li>
                         <Link to="/">Home</Link>
                     </li>
@@ -57,6 +57,7 @@ const Navbar = () => {
                     </li>
                     <li>
                         <Link to="/flight">flights</Link>
+                        <Link to="/team">Team Member</Link>
                     </li>
                 </ul>
             </nav>

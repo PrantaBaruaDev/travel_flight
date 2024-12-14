@@ -8,6 +8,7 @@ const EnterTraverlDetails = () => {
     return (
         <PassengerInfo flightID={id} >
             <PassengerFrom />
+            <button className="btn bg-primary text-white">Next</button>
         </PassengerInfo>
     );
 };

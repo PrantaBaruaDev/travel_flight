@@ -2,8 +2,13 @@ import React from "react";
 import { FaKey, FaEnvelope, FaUser } from "react-icons/fa"; // Import FaUser icon
 import bg from "src/assets/a_modern.jpg";
 import { Link } from 'react-router-dom';
+import Navbar from "../components/Navbar";
 const Createaccount = () => {
     return (
+        <div>
+            <div className="header-root">
+                <Navbar />
+            </div>
         <div className="px-0 sm:px-2 lg:px-[130px] w-full h-screen flex items-center justify-center bg-teal-700">
             <div
                 className="w-full h-[100vh] sm:h-[90vh] xs:h-[100vh] lg:h-[90vh] mb-8 rounded-xl shadow-xl flex items-center justify-center"
@@ -79,6 +84,7 @@ const Createaccount = () => {
                     
                 </div>
             </div>
+        </div>
         </div>
     );
 };

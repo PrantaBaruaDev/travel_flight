@@ -9,6 +9,7 @@ import {
 } from "react-icons/fa";
 import PassengerInfo from "./layouts/PassengerInfo";
 import { useNavigate } from "react-router-dom";
+import SeatsChoose from "../components/SeatsChoose";
 
 const TravellerDetails = () => {
     const navigate = useNavigate();
@@ -149,6 +150,14 @@ const TravellerDetails = () => {
                         </div>
                     </div>
                 ))}
+
+            <div className="choose-seats ">
+                {/* Select Seats Section */}
+                <h1 className="text-center text-2xl font-bold text-primary">
+                    Select Seats
+                </h1>
+                <SeatsChoose />
+            </div>
 
                 {/* Add Ons Section */}
                 <h1 className="text-center text-2xl font-bold text-primary">
