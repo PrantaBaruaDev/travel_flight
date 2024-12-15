@@ -14,19 +14,24 @@ import Createaccount from "../page/Createaccount";
 import TeamMember from "src/components/TeamMember";
 
 // admin Page link part
-// import MasterDeshboard from "./../admin/layouts/MasterDeshboard";
+
 import Admin from "../admin/layouts/Admin";
+
 // views
+
 import Dashboard from "src/admin/views/admin/Dashboard";
 import Settings from "src/admin/views/admin/Settings";
 import Tables from "src/admin/views/admin/Tables";
-import Flights from "src/admin/AAdmin/Flights";
-import Airlines  from "src/admin/AAdmin/Airlines";
-import Airports  from "src/admin/AAdmin/Airports";
-import Passengers  from "src/admin/AAdmin/Passengers";
-import Payments  from "src/admin/AAdmin/Payments";
-import Resarvation  from "src/admin/AAdmin/Resarvation";
-import Seats  from "src/admin/AAdmin/Seats";
+import Flights from "src/admin/AAdmin/Flights/Flights";
+import FlightTable from "src/admin/AAdmin/Flights/FlightTable";
+import Airlines  from "src/admin/AAdmin/Airlines/Airlines";
+import Airports  from "src/admin/AAdmin/Airports/Airports";
+import Passengers  from "src/admin/AAdmin/Passengers/Passengers";
+import Payments  from "src/admin/AAdmin/Payments/Payments";
+import Resarvation from "src/admin/AAdmin/Resarvation/Resarvation";
+import Seats from "src/admin/AAdmin/Seats/Seats";
+import AirlinesTable from 'src/admin/AAdmin/Airlines/AirlinesTable';
+import AirportsTable from "src/admin/AAdmin/Airports/AirportsTable";
 
 
 const AppRouter = () => {
@@ -66,9 +71,18 @@ const AppRouter = () => {
                     {/* <Route path={"/admin/dashboard"} element={<Dashboard />} /> */}
                     <Route path="/admin/dashboard" element={<Dashboard />} />
                     <Route path="/admin/settings" element={<Settings />} />
+
                     <Route path="/admin/flights" element={<Flights />} />
+                    <Route path="/admin/flights/:id" element={<Flights page="Edit" />} />
+                    <Route path="/admin/flights/table" element={<FlightTable />} />
+
                     <Route path="/admin/airlines" element={<Airlines />} />
+                    <Route path="/admin/airlines/:id" element={<Airlines page="Edit" />} />
+                    <Route path="/admin/airlines/table" element={<AirlinesTable />} />
+
                     <Route path="/admin/airports" element={<Airports />} />
+                    <Route path="/admin/airports/table" element={<AirportsTable />} />
+
                     <Route path="/admin/passengers" element={<Passengers />} />
                     <Route path="/admin/payments" element={<Payments />} />
                     <Route path="/admin/resarvation" element={<Resarvation />} />
