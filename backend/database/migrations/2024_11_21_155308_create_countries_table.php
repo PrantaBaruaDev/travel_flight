@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string('country_name');
             $table->string('short_name');
             $table->string('phone_code');
-            $table->timestamps();
         });
     }
 

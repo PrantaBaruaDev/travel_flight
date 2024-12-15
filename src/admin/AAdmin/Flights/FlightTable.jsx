@@ -56,8 +56,6 @@ const FlightTable = () => {
                     setNotificationMessage("Error deleting item");
                 }
             }
-        } else if (action === "View") {
-            // Handle view details
         }
         handleMenuClose();
     };

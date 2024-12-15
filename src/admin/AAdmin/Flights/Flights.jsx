@@ -26,14 +26,14 @@ const Flights = (props) => {
     // Fetch data when the component loads, only in Edit mode
     if (props.page === "Edit" && numericId) {
       initialState.id = "";
-      const fetchFlight = async () => {
+      const fetchGetData = async () => {
         try {
           await fetchData(route, numericId);
         } catch (err) {
           console.error("Error fetching flight data:", err);
         }
       };
-      fetchFlight();
+      fetchGetData();
     }
   }, [props.page, numericId, route]);
   
@@ -299,23 +299,3 @@ const Flights = (props) => {
 };
 
 export default Flights;
-
-
-
- 
-
-
-  /* useEffect(() => {
-    // Fetch data when the component loads
-    if(props.page === 'Edit'){
-      const fetchFlight = async () => {
-        try {
-          await fetchData(route, numericId);
-          setFormData(data); // Set formData with the fetched flight data
-        } catch (err) {
-          console.error("Error fetching flight data:", err);
-        }
-      };
-      fetchFlight();
-    }
-  }, [props.page, numericId, route, fetchData, data]); */
