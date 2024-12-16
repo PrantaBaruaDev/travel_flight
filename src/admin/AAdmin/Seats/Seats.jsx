@@ -1,33 +1,70 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import useApiService from "src/services/useApiService";
+import Notification from "src/hooks/Notification";
+
+const initialState = {
+  SEAT_ID: "",
+  FLIGHT_ID: "",
+  SEAT_NUMBER: "",
+  CLASS: "",
+  Availability: "",
+};
 
 const Seats = () => {
-  const [formData, setFormData] = useState({
-    seat_id: "",
-    flight_id: "",
-    seat_number: "",
-    class: "",
-    availability: "",
-  });
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const numericId = id ? parseInt(id, 10) : null;
 
+  const [formData, setFormData] = useState(initialState);
+  const [notificationMessage, setNotificationMessage] = useState("");
+
+  const route = { seats: "/seats" };
+  const {
+    data: seatsData,
+    fetchData: fetchSeatsData,
+    createData: createSeatsData,
+    updateData: updateSeatsData,
+  } = useApiService();
+
+  // Fetch data if editing
+  useEffect(() => {
+    if (numericId) {
+      fetchSeatsData(`${route.seats}/${numericId}`).then((res) => {
+        setFormData(res || initialState);
+      });
+    }
+  }, [numericId, fetchSeatsData, route.seats]);
+
+  // Input change handler
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  // Submit handler
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Seat Data Submitted:", formData);
+    try {
+      if (numericId) {
+        await updateSeatsData(`${route.seats}/${numericId}`, formData);
+        setNotificationMessage("Seat updated successfully!");
+      } else {
+        await createSeatsData(route.seats, formData);
+        setNotificationMessage("Seat created successfully!");
+        setFormData(initialState);
+      }
+    } catch (err) {
+      setNotificationMessage("Error saving seat data.");
+    }
   };
 
   return (
     <div
       style={{
         display: "flex",
-        alignItems: "center",
         justifyContent: "center",
+        alignItems: "center",
         height: "100vh",
         background: "linear-gradient(90deg, #f7f7f7, #e9f7f9)",
       }}
@@ -42,14 +79,19 @@ const Seats = () => {
           width: "400px",
         }}
       >
-        <h3 style={{ textAlign: "center", marginBottom: "15px" }}>Seat Details</h3>
-        {["seat_id", "flight_id", "seat_number", "class"].map((field) => (
+        <h3 style={{ textAlign: "center", marginBottom: "20px" }}>
+          Seat Details
+        </h3>
+
+        {["SEAT_ID", "FLIGHT_ID", "SEAT_NUMBER", "CLASS"].map((field) => (
           <div key={field} style={{ marginBottom: "15px" }}>
-            <label style={{ display: "block", marginBottom: "5px" }}>{field.replace("_", " ").toUpperCase()}:</label>
+            <label style={{ display: "block", marginBottom: "5px" }}>
+              {field.replace("_", " ")}:
+            </label>
             <input
               type="text"
               name={field}
-              value={formData[field]}
+              value={formData[field] || ""}
               onChange={handleChange}
               required
               style={{
@@ -61,11 +103,14 @@ const Seats = () => {
             />
           </div>
         ))}
-        <div style={{ marginBottom: "15px" }}>
-          <label style={{ display: "block", marginBottom: "5px" }}>Availability:</label>
+
+        <div style={{ marginBottom: "20px" }}>
+          <label style={{ display: "block", marginBottom: "5px" }}>
+            Availability:
+          </label>
           <select
-            name="availability"
-            value={formData.availability}
+            name="Availability"
+            value={formData.Availability || ""}
             onChange={handleChange}
             required
             style={{
@@ -75,19 +120,18 @@ const Seats = () => {
               borderRadius: "5px",
             }}
           >
-            <option value="" disabled>
-              Select Availability
-            </option>
+            <option value="">Select Availability</option>
             <option value="true">Available</option>
             <option value="false">Unavailable</option>
           </select>
         </div>
+
         <button
           type="submit"
           style={{
             width: "100%",
             padding: "10px",
-            backgroundColor: "#007BFF",
+            backgroundColor: "#007bff",
             color: "#fff",
             border: "none",
             borderRadius: "5px",
@@ -96,6 +140,12 @@ const Seats = () => {
         >
           Submit
         </button>
+
+        {notificationMessage && (
+          <p style={{ textAlign: "center", color: "green", marginTop: "10px" }}>
+            {notificationMessage}
+          </p>
+        )}
       </form>
     </div>
   );
