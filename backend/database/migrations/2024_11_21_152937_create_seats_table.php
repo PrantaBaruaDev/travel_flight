@@ -16,13 +16,12 @@ return new class extends Migration
             $table->unsignedBigInteger('flight_id');
             $table->string('seat_number', 10);
             $table->tinyInteger('class');
-            $table->boolean('availability')->default(true);
+            $table->string('availability', 1)->default('1');
             $table->timestamps();
         });
     }
-
     /**
-     * Reverse the migrations.
+     * Reverse the migrations. php artisan migrate:refresh --path=database/migrations/2024_11_21_152937_create_seats_table.php 
      */
     public function down(): void
     {

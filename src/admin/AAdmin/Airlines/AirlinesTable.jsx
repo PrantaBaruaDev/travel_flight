@@ -35,7 +35,7 @@ const AirlinesTable = () => {
         }, 30000); 
 
         return () => clearInterval(intervalId); 
-    }, [route]);
+    }, [route.airline]);
 
     // useEffect(() => {
     //     const fetchData = async () => {

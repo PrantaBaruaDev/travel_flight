@@ -26,7 +26,7 @@ class StoreSeatsRequest extends FormRequest
             'flight_id' => 'required|integer',
             'seat_number' => 'required|string',
             'class' => 'required|integer',
-            'availability' => 'required|boolean',
+            'availability' => 'required|string|in:1,0',
         ];
     }
 }

@@ -28,9 +28,16 @@ const SeatsTable = () => {
         deleteData: deleteSeatsData,
     } = useApiService();
 
+
     useEffect(() => {
         fetchSeatsData(route.seats);
-    }, [fetchSeatsData, route.seats]);
+
+        const intervalId = setInterval(() => {
+            fetchSeatsData(route.seats);
+        }, 30000); 
+
+        return () => clearInterval(intervalId); 
+    }, [route.seats]);
 
     const handleMenuClick = (event, row) => {
         setAnchorEl(event.currentTarget);
@@ -88,12 +95,12 @@ const SeatsTable = () => {
         },
         {
             name: "Flight ID",
-            selector: (row) => row.flightId,
+            selector: (row) => row.flight_id,
             sortable: true,
         },
         {
             name: "Seat Number",
-            selector: (row) => row.seatNumber,
+            selector: (row) => row.seat_number,
             sortable: true,
         },
         {
@@ -103,7 +110,7 @@ const SeatsTable = () => {
         },
         {
             name: "Availability",
-            selector: (row) => row.availability,
+            selector: (row) => (row.availability ? "Available":"Not Available"),
             sortable: true,
         },
         {
