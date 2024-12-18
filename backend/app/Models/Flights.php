@@ -24,10 +24,22 @@ class Flights extends Model
         'arrival_time' => 'datetime:Y-m-d H:i:s',
     ];
 
-    // Define the relationship with Airline
+    // A flight belongs to an airline
     public function airline()
     {
-        return $this->belongsTo(Airline::class);
+        return $this->belongsTo(Airlines::class);
+    }
+
+    // A flight has many reservations
+    public function reservations()
+    {
+        return $this->hasMany(Reservations::class);
+    }
+
+    // A flight belongs to a flight status
+    public function flightStatus()
+    {
+        return $this->belongsTo(FlightStatus::class, 'status', 'id');
     }
 
     // Custom method to join with Airline

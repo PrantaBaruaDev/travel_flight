@@ -18,6 +18,7 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 Route::apiResource('/passengers', PassengerController::class);
+Route::apiResource('/passengersdata', [PassengerController::class, 'getPassengerFullData']);
 
 Route::apiResource('/flights', FlightsController::class);
 Route::get('/flightsindex', [FlightsController::class, 'indexWithJoin']);

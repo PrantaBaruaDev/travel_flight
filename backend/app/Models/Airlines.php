@@ -18,7 +18,7 @@ class Airlines extends Model
     // Define the inverse relationship with Flights
     public function flights()
     {
-        return $this->hasMany(Flight::class);
+        return $this->hasMany(Flights::class);
     }
 
     // Define the relationship with Airline

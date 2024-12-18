@@ -79,4 +79,9 @@ class PassengerController extends Controller
 
         return response()->json(['message' => 'Item deleted successfully'], 200);
     }
+
+    public function getPassengerFullData(){
+        $data = Passenger::getPassengerAllData();
+        return response()->json($data);
+    }
 }

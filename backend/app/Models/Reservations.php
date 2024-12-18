@@ -16,4 +16,22 @@ class Reservations extends Model
         'reservation_date',
         'status',
     ];
+
+     // A reservation belongs to a flight
+     public function flight()
+     {
+         return $this->belongsTo(Flights::class);
+     }
+ 
+     // A reservation belongs to a seat
+     public function seat()
+     {
+         return $this->belongsTo(Seats::class);
+     }
+ 
+     // A reservation has many passengers
+     public function passengers()
+     {
+         return $this->hasMany(Passenger::class);
+     }
 }
