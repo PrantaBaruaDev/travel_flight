@@ -13,8 +13,7 @@ class AirportsController extends Controller
      */
     public function index()
     {
-        // return Airports::all();
-        return "Airports Controller Page";
+        return Airports::all();
     }
 
     /**
@@ -83,5 +82,10 @@ class AirportsController extends Controller
         $data->delete();
 
         return response()->json(['message' => 'Item deleted successfully'], 200);
+    }
+
+    public function indexWithJoin() {
+        $airports = Airports::joinWithCountry();
+        return response()->json($airports);
     }
 }

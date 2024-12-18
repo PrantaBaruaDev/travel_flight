@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('airport_code', 3)->unique();
             $table->string('name', 100);
             $table->string('city', 50);
-            $table->string('country', 50);
+            $table->unsignedBigInteger('country_id');
             $table->string('facilites');
             $table->timestamps();
         });

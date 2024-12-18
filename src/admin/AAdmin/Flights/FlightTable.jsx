@@ -15,20 +15,23 @@ const FlightTable = () => {
     const open = Boolean(anchorEl);
     const navigate = useNavigate();
     const [notificationMessage, setNotificationMessage] = useState("");
-    const route = "/flights";
+    const route = {
+        flights: "/flightsindex",
+        flightmodify: "/flights",
+    };
     const { data, error, fetchData, deleteData } = useApiService();
 
 
     useEffect(() => {
-        fetchData(route); // Initial data fetch when the component loads
+        fetchData(route.flights); // Initial data fetch when the component loads
 
         // Setting up interval to fetch data every 30 seconds (example)
         const intervalId = setInterval(() => {
-            fetchData(route);
+            fetchData(route.flights);
         }, 30000); // Poll every 30 seconds for live data
 
         return () => clearInterval(intervalId); // Cleanup the interval on unmount
-    }, [route]);
+    }, [route.flights]);
 
     const handleMenuClick = (event, row) => {
         setAnchorEl(event.currentTarget);
@@ -43,15 +46,15 @@ const FlightTable = () => {
     const handleAction = async (action, id) => {
         
         if (action === "Edit") {
-            navigate(`/admin${route}/${id}`);
+            navigate(`/admin${route.flightmodify}/${id}`);
         } else if (action === "Delete") {
             const confirm = window.confirm("Are you sure you want to Delete data?");
             if (confirm) {
                 try {
                     // Attempt to delete the item
-                    await deleteData(`${route}/${id}`);
+                    await deleteData(`${route.flightmodify}/${id}`);
                     setNotificationMessage("Delete Successful"); 
-                    fetchData(route); 
+                    fetchData(route.flights); 
                 } catch (error) {
                     setNotificationMessage("Error deleting item");
                 }
@@ -67,11 +70,11 @@ const FlightTable = () => {
         if (confirm) {
             try {
                 for (let row of selectedRows) {
-                    await deleteData(`${route}/${row.id}`);
+                    await deleteData(`${route.flightmodify}/${row.id}`);
                 }
                 setNotificationMessage("Selected rows deleted successfully.");
                 setSelectedRows([]);
-                fetchData(route); 
+                fetchData(route.flights); 
             } catch (err) {
                 setNotificationMessage("Error deleting selected rows.");
             }
@@ -89,8 +92,8 @@ const FlightTable = () => {
             sortable: true,
         },
         {
-            name: "Airline ID",
-            selector: (row) => row.airline_id,
+            name: "Airline Name",
+            selector: (row) => row.airline_name,
             sortable: true,
         },
         {
@@ -125,7 +128,7 @@ const FlightTable = () => {
         },
         {
             name: "Status",
-            selector: (row) => row.status,
+            selector: (row) => row.flight_status,
             sortable: true,
         },
         {

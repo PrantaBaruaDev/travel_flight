@@ -18,9 +18,16 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 Route::apiResource('/passengers', PassengerController::class);
+
 Route::apiResource('/flights', FlightsController::class);
+Route::get('/flightsindex', [FlightsController::class, 'indexWithJoin']);
+
 Route::apiResource('/airlines', AirlinesController::class);
+Route::get('/airlinesindex', [AirlinesController::class, 'indexWithJoin']);
+
 Route::apiResource('/airports', AirportsController::class);
+Route::get('/airportsindex', [AirportsController::class, 'indexWithJoin']);
+
 Route::apiResource('/countries', CountriesController::class);
 Route::apiResource('/payments', PaymentsController::class);
 Route::apiResource('/reservations', ReservationsController::class);

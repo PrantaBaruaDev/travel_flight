@@ -5,7 +5,7 @@ import Notification from "src/hooks/Notification";
 
 const initialState = {
     name: "",
-    country: "",
+    country_id: "",
     code: "",
 };
 const Airlines = (props) => {
@@ -164,8 +164,8 @@ const Airlines = (props) => {
                         Country:
                     </label>
                     <select
-                        name="country"
-                        value={formData.country || ""}
+                        name="country_id"
+                        value={formData.country_id || ""}
                         onChange={handleChange}
                         required
                         style={{

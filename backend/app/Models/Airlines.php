@@ -11,7 +11,30 @@ class Airlines extends Model
     
     protected $fillable = [
         'name',
-        'country',
+        'country_id',
         'code',
     ];
+
+    // Define the inverse relationship with Flights
+    public function flights()
+    {
+        return $this->hasMany(Flight::class);
+    }
+
+    // Define the relationship with Airline
+    public function countries()
+    {
+        return $this->belongsTo(Countries::class);
+    }
+
+    // Custom method to join with Airline
+    public static function joinWithAirline()
+    {
+        return self::join('countries', 'airlines.country_id', '=', 'countries.id')
+            ->select(
+                'airlines.*', 
+                'countries.country_name as countries_name',
+            )
+            ->get();
+    }
 }

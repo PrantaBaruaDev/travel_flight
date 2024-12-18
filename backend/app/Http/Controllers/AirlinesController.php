@@ -79,4 +79,9 @@ class AirlinesController extends Controller
 
         return response()->json(['message' => 'Item deleted successfully'], 200);
     }
+
+    public function indexWithJoin() {
+        $airlines = Airlines::joinWithAirline();
+        return response()->json($airlines);
+    }
 }

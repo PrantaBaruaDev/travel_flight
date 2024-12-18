@@ -14,14 +14,14 @@ return new class extends Migration
         Schema::create('airlines', function (Blueprint $table) {
             $table->id();
             $table->string('name', 100);
-            $table->string('country', 50);
+            $table->unsignedBigInteger('country_id');
             $table->string('code', 10);
             $table->timestamps();
         });
     }
 
     /**
-     * Reverse the migrations.
+     * Reverse the migrations. 
      */
     public function down(): void
     {

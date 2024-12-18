@@ -13,7 +13,24 @@ class Airports extends Model
         'airport_code',
         'name',
         'city',
-        'country',
+        'country_id',
         'facilites',
     ];
+
+    // Define the relationship with Airline
+    public function countries()
+    {
+        return $this->belongsTo(Countries::class);
+    }
+
+    // Custom method to join with Airline
+    public static function joinWithCountry()
+    {
+        return self::join('countries', 'airports.country_id', '=', 'countries.id')
+            ->select(
+                'airports.*', 
+                'countries.country_name as countries_name', 
+            )
+            ->get();
+    }
 }

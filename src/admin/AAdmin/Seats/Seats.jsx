@@ -94,7 +94,7 @@ const Seats = (props) => {
             setNotificationMessage("Error saving seat data.");
         }
     };
-console.log(formData)
+
     return (
         <div
             style={{
@@ -209,7 +209,7 @@ console.log(formData)
                                 </option>
                             ))
                         ) : (
-                            <option disabled>Loading countries...</option>
+                            <option disabled>Loading Class Name...</option>
                         )}
                     </select>
                 </div>

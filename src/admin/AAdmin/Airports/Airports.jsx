@@ -7,8 +7,8 @@ const initialState = {
     airport_code: "",
     name: "",
     city: "",
-    country: "",
-    facilities: "",
+    country_id: "",
+    facilites: "",
 };
 
 const Airports = (props) => {
@@ -52,6 +52,16 @@ const Airports = (props) => {
 
         fetchCountryData(route.country);
     }, [props.page, numericId, route.airports, route.country]);
+
+       // Sync formData with data when data is available
+        useEffect(() => {
+            if (props.page === "Edit" && airportsData) {
+                setFormData((prev) => ({
+                    ...prev,
+                    ...airportsData,
+                }));
+            }
+        }, [airportsData, props.page]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -188,8 +198,8 @@ const Airports = (props) => {
                         Country:
                     </label>
                     <select
-                        name="country"
-                        value={formData.country || ""}
+                        name="country_id"
+                        value={formData.country_id || ""}
                         onChange={handleChange}
                         required
                         style={{
@@ -217,7 +227,7 @@ const Airports = (props) => {
 
                 <div style={{ marginBottom: "15px" }}>
                     <label style={{ display: "block", marginBottom: "5px" }}>
-                        Facilities:
+                        Facilites:
                     </label>
                     <textarea
                         name="facilites"

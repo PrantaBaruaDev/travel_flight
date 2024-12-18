@@ -14,4 +14,14 @@ class Countries extends Model
         'short_name',
         'phone_code',
     ];
+     // Define the inverse relationship with Flights
+     public function flights()
+     {
+         return $this->hasMany(Airlines::class);
+     }
+     // Define the inverse relationship with Flights
+     public function airports()
+     {
+         return $this->hasMany(Airports::class);
+     }
 }

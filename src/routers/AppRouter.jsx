@@ -81,6 +81,7 @@ const AppRouter = () => {
                     <Route path="/admin/airlines/table" element={<AirlinesTable />} />
 
                     <Route path="/admin/airports" element={<Airports />} />
+                    <Route path="/admin/airports/:id" element={<Airports page="Edit" />} />
                     <Route path="/admin/airports/table" element={<AirportsTable />} />
 
                     <Route path="/admin/passengers" element={<Passengers />} />

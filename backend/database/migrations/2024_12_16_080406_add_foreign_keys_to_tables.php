@@ -41,6 +41,8 @@ return new class extends Migration
         // Schema::table('seats', function (Blueprint $table) {
         //     $table->foreign('flight_id')->references('id')->on('flights')->onDelete('cascade');
         // });
+
+        // $table->foreign('country_id')->references('id')->on('countries')->onDelete('cascade'); 
     }
 
     /**

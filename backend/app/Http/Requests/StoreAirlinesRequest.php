@@ -24,7 +24,7 @@ class StoreAirlinesRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'country' => 'required|numeric', 
+            'country_id' => 'required|numeric', 
             'code' => 'required|string|max:10',
         ];
     }

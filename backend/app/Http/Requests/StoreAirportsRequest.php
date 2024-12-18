@@ -26,7 +26,7 @@ class StoreAirportsRequest extends FormRequest
             'airport_code' =>'required|string|max:3',
             'name' =>'required|string',
             'city' =>'required|string',
-            'country' =>'required|integer',
+            'country_id' =>'required|integer',
             'facilites' =>'required|string',
         ];
     }

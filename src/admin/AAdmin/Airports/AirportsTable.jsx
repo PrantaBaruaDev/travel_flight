@@ -18,19 +18,22 @@ const AirportsTable = () => {
     const navigate = useNavigate();
     const [notificationMessage, setNotificationMessage] = useState("");
     const route = {
-        airports: "/airports",
-        country: "/countries",
+        airports: "/airportsindex",
+        airportsmodify: "/airports",
     };
     
     const { data: airportsData, error: airportsError, fetchData: fetchAirportsData, deleteData: deleteAirportsData } = useApiService();
-    const { data: countriesData, error: countriesError, fetchData: fetchCountriesData } = useApiService();
 
 
     useEffect(() => {
-        if (route.airports) {
+        fetchAirportsData(route.airports);
+
+        const intervalId = setInterval(() => {
             fetchAirportsData(route.airports);
-        }
-    }, [fetchAirportsData, route.airports]);
+        }, 30000); 
+
+        return () => clearInterval(intervalId); 
+    }, [route.airports]);
 
     const handleMenuClick = (event, row) => {
         setAnchorEl(event.currentTarget);
@@ -45,15 +48,15 @@ const AirportsTable = () => {
     const handleAction = async (action, id) => {
         
         if (action === "Edit") {
-            navigate(`/admin${route.airline}/${id}`);
+            navigate(`/admin${route.airportsmodify}/${id}`);
         } else if (action === "Delete") {
             const confirm = window.confirm("Are you sure you want to Delete data?");
             if (confirm) {
                 try {
-                    await deleteAirlinesData(`${route.airline}/${id}`);
+                    await deleteAirportsData(`${route.airportsmodify}/${id}`);
                     setNotificationMessage("Delete Successful"); 
-                    fetchAirlinesData(route.airline); 
-                } catch (airlinesError) {
+                    fetchAirportsData(route.airports); 
+                } catch (airportsError) {
                     setNotificationMessage("Error deleting item");
                 }
             }
@@ -68,11 +71,11 @@ const AirportsTable = () => {
         if (confirm) {
             try {
                 for (let row of selectedRows) {
-                    await deleteAirlinesData(`${route.airline}/${row.id}`);
+                    await deleteAirportsData(`${route.airportsmodify}/${row.id}`);
                 }
                 setNotificationMessage("Selected rows deleted successfully.");
                 setSelectedRows([]);
-                fetchAirlinesData(route.airline); 
+                fetchAirportsData(route.airports); 
             } catch (err) {
                 setNotificationMessage("Error deleting selected rows.");
             }
@@ -85,8 +88,8 @@ const AirportsTable = () => {
 
     const columns = [
         {
-            name: "Airline ID",
-            selector: (row) => row.id,
+            name: "Airport Code",
+            selector: (row) => row.airport_code,
             sortable: true,
         },
         {
@@ -95,13 +98,13 @@ const AirportsTable = () => {
             sortable: true,
         },
         {
-            name: "Country",
-            selector: (row) => row.country,
+            name: "City",
+            selector: (row) => row.city,
             sortable: true,
         },
         {
-            name: "Code",
-            selector: (row) => row.code,
+            name: "Country",
+            selector: (row) => row.countries_name,
             sortable: true,
         },
         {
@@ -129,33 +132,41 @@ const AirportsTable = () => {
 
     return (
         <div className="bg-white p-5 rounded h-[60vh]">
-            {airlinesError && <p>{airlinesError}</p>}
-            {airlinesData ? (
-                <>
-                {/* Button to delete selected rows */}
-                <button
-                    className="rounded"
-                    onClick={handleDeleteSelected}
-                    disabled={selectedRows.length === 0} // Disable if no rows are selected
-                    style={{ marginBottom: "20px", padding: "10px", backgroundColor: "#e74c3c", color: "#fff", border: "none", cursor: "pointer" }}
-                >
-                    Delete Selected
-                </button>
+            {airportsError && <p>{airportsError}</p>}
+            {airportsData && Array.isArray(airportsData) ? (
+  <>
+    {/* Button to delete selected rows */}
+    <button
+      className="rounded"
+      onClick={handleDeleteSelected}
+      disabled={selectedRows.length === 0} // Disable if no rows are selected
+      style={{
+        marginBottom: "20px",
+        padding: "10px",
+        backgroundColor: "#e74c3c",
+        color: "#fff",
+        border: "none",
+        cursor: "pointer",
+      }}
+    >
+      Delete Selected
+    </button>
 
-                <DataTable
-                    title="Airlines Data"
-                    columns={columns}
-                    data={airlinesData} 
-                    onSelectedRowsChange={handleRowSelected}  
-                    selectableRows
-                    pagination
-                    selectableRowsHighlight
-                    highlightOnHover
-                />
-                </>
-            ) : (
-                <p>No data available</p>
-            )}
+    <DataTable
+      title="Airports Data"
+      columns={columns}
+      data={airportsData}
+      onSelectedRowsChange={handleRowSelected}
+      selectableRows
+      pagination
+      selectableRowsHighlight
+      highlightOnHover
+    />
+  </>
+) : (
+  <p>No data available</p>
+)}
+
             {notificationMessage && <Notification message={notificationMessage} />}
         </div>
     );

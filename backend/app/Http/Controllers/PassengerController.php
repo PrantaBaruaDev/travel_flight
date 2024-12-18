@@ -13,8 +13,7 @@ class PassengerController extends Controller
      */
     public function index()
     {
-        // return StudentInfo::all();
-        return "Passengert Controller Page";
+        return Passenger::all();
     }
 
     /**

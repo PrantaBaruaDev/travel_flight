@@ -18,8 +18,8 @@ const AirlinesTable = () => {
     const navigate = useNavigate();
     const [notificationMessage, setNotificationMessage] = useState("");
     const route = {
-        airline: "/airlines",
-        country: "/countries",
+        airline: "/airlinesindex",
+        airlinemodify: "/airlines",
     };
     
     const { data: airlinesData, error: airlinesError, fetchData: fetchAirlinesData, deleteData: deleteAirlinesData } = useApiService();
@@ -70,12 +70,12 @@ const AirlinesTable = () => {
     const handleAction = async (action, id) => {
         
         if (action === "Edit") {
-            navigate(`/admin${route.airline}/${id}`);
+            navigate(`/admin${route.airlinemodify}/${id}`);
         } else if (action === "Delete") {
             const confirm = window.confirm("Are you sure you want to Delete data?");
             if (confirm) {
                 try {
-                    await deleteAirlinesData(`${route.airline}/${id}`);
+                    await deleteAirlinesData(`${route.airlinemodify}/${id}`);
                     setNotificationMessage("Delete Successful"); 
                     fetchAirlinesData(route.airline); 
                 } catch (airlinesError) {
@@ -93,7 +93,7 @@ const AirlinesTable = () => {
         if (confirm) {
             try {
                 for (let row of selectedRows) {
-                    await deleteAirlinesData(`${route.airline}/${row.id}`);
+                    await deleteAirlinesData(`${route.airlinemodify}/${row.id}`);
                 }
                 setNotificationMessage("Selected rows deleted successfully.");
                 setSelectedRows([]);
@@ -121,7 +121,7 @@ const AirlinesTable = () => {
         },
         {
             name: "Country",
-            selector: (row) => row.country,
+            selector: (row) => row.countries_name,
             sortable: true,
         },
         {
