@@ -18,10 +18,11 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 Route::apiResource('/passengers', PassengerController::class);
-Route::apiResource('/passengersdata', [PassengerController::class, 'getPassengerFullData']);
+Route::get('/passengersdata', [PassengerController::class, 'getPassengerFullData']);
 
 Route::apiResource('/flights', FlightsController::class);
 Route::get('/flightsindex', [FlightsController::class, 'indexWithJoin']);
+Route::get('/flightsdetails', [FlightsController::class, 'getFlightDetails']);
 
 Route::apiResource('/airlines', AirlinesController::class);
 Route::get('/airlinesindex', [AirlinesController::class, 'indexWithJoin']);

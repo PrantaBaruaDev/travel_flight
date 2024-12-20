@@ -33,6 +33,7 @@ import Seats from "src/admin/AAdmin/Seats/Seats";
 import AirlinesTable from 'src/admin/AAdmin/Airlines/AirlinesTable';
 import AirportsTable from "src/admin/AAdmin/Airports/AirportsTable";
 import SeatsTable from "src/admin/AAdmin/Seats/SeatsTable";
+import PassengersTable from 'src/admin/AAdmin/Passengers/PassengersTable';
 
 const AppRouter = () => {
     return (
@@ -72,7 +73,7 @@ const AppRouter = () => {
                     <Route path="/admin/dashboard" element={<Dashboard />} />
                     <Route path="/admin/settings" element={<Settings />} />
 
-                    <Route path="/admin/flights" element={<Flights />} />
+                    <Route path="/admin/flights" element={<Flights page="Create" />} />
                     <Route path="/admin/flights/:id" element={<Flights page="Edit" />} />
                     <Route path="/admin/flights/table" element={<FlightTable />} />
 
@@ -86,6 +87,7 @@ const AppRouter = () => {
 
                     <Route path="/admin/passengers" element={<Passengers />} />
                     <Route path="/admin/passengers/:id" element={<Passengers page="Edit" />} />
+                    <Route path="/admin/passengers/table" element={<PassengersTable />} />
 
                     <Route path="/admin/payments" element={<Payments />} />
                     <Route path="/admin/resarvation" element={<Resarvation />} />

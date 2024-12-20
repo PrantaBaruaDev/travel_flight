@@ -48,8 +48,15 @@ const Passengers = (props) => {
             };
             fetchGetData();
         }
-
-        fetchCountryData(route.country);
+        const fetchCountries = async () => {
+            try {
+                console.log("Fetching countries from:", route.country);
+                await fetchCountryData(route.country);
+            } catch (err) {
+                console.error("Error fetching country data:", err);
+            }
+        };
+        fetchCountries();
     }, [props.page, numericId, route.passenger, route.country]);
 
     // Sync formData with data when data is available
@@ -118,7 +125,7 @@ const Passengers = (props) => {
                     Passenger Details
                 </h3>
 
-                {props.page === "Edit"}
+                {props.page === "Edit" &&
                 <div style={{ marginBottom: "15px" }}>
                     <label style={{ display: "block", marginBottom: "5px" }}>
                         Passenger ID:
@@ -137,27 +144,8 @@ const Passengers = (props) => {
                             borderRadius: "5px",
                         }}
                     />
-                </div>
-
-                <div style={{ marginBottom: "15px" }}>
-                    <label style={{ display: "block", marginBottom: "5px" }}>
-                        Reservation ID:
-                    </label>
-                    <input
-                        type="text"
-                        name="reservation_id"
-                        value={formData.reservation_id}
-                        onChange={handleChange}
-                        required
-                        disabled
-                        style={{
-                            width: "100%",
-                            padding: "8px",
-                            border: "1px solid #ccc",
-                            borderRadius: "5px",
-                        }}
-                    />
-                </div>
+                </div>}
+                
 
                 {[
                     "reservation_id",

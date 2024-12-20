@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('flight_id');
             $table->string('seat_number', 10);
             $table->tinyInteger('class');
-            $table->string('availability', 1)->default('1');
+            $table->tinyInteger('availability')->default(1);
             $table->timestamps();
         });
     }

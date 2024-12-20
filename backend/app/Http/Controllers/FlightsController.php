@@ -84,4 +84,9 @@ class FlightsController extends Controller
         $flights = Flights::joinWithAirline();
         return response()->json($flights);
     }
+
+    public function getFlightDetails() {
+        $flights = Flights::getFlightDetails();
+        return response()->json($flights);
+    }
 }
