@@ -86,16 +86,16 @@ const FlightDetailsOverlay = ({data}) => {
 
                     <div className="chackin">
                         <p className="text-bash font-bold">Check In</p>
-                        <p className="text-xs text-secondary">{`10 Kg(s)`}</p>
-                        <p className="text-xs text-secondary">{`10 Kg(s)`}</p>
+                        <p className="text-xs text-secondary">{`20 Kg(s)`}</p>
+                        <p className="text-xs text-secondary">{`20 Kg(s)`}</p>
                         <p className="text-xs text-secondary">{`20 Kg(s)`}</p>
                     </div>
 
                     <div className="cabin">
                         <p className="text-bash font-bold">Cabin</p>
-                        <p className="text-xs text-secondary">{`5 Kg(s)`}</p>
-                        <p className="text-xs text-secondary">{`5 Kg(s)`}</p>
-                        <p className="text-xs text-secondary">{`10 Kg(s)`}</p>
+                        <p className="text-xs text-secondary">{`7 Kg(s)`}</p>
+                        <p className="text-xs text-secondary">{`7 Kg(s)`}</p>
+                        <p className="text-xs text-secondary">{`7 Kg(s)`}</p>
                     </div>
                 </div>
             </div>
