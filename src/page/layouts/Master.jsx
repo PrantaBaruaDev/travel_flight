@@ -2,6 +2,7 @@ import React from 'react';
 import Navbar from "src/components/Navbar";
 import Footer from 'src/components/Footer';
 import { Outlet } from 'react-router-dom';
+import DataContextMaster from './DataContextMaster';
 
 const Master = ({children}) => {
     return (
@@ -10,7 +11,9 @@ const Master = ({children}) => {
                 <Navbar/>             
             </header>
             <main>
+            <DataContextMaster>
                 <Outlet />
+            </DataContextMaster>
             </main>
             <footer>
                 <Footer />

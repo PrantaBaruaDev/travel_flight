@@ -42,11 +42,16 @@ const PriceReceipt = ({ isSticky }) => {
     >
       <div className="flex items-center gap-2 px-4 py-6">
         <figure>
-          <img
+          {/* <img
             className="w-[45px] rounded-full"
             src={data.logo}
             alt="Image"
-          />
+          /> */}
+          <img
+          className="w-[50px] rounded-full"
+          src="https://img.favpng.com/9/17/22/airplane-aircraft-aviation-logo-poster-png-favpng-J9PdkddGmnqazCTzCA1RjDaLP.jpg"
+          alt="Image"
+      />
         </figure>
         <p className="font-medium">{data.alname}</p>
       </div>

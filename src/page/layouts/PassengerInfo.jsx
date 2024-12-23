@@ -23,7 +23,6 @@ const PassengerInfo = ({ flightID, children }) => {
     }, []);
 
     return (
-        <DataContextMaster setFlightId={flightID}>
             <div className="container-root">
                 <div className="grid grid-flow-col gap-7">
                     <div className="col-span-10">
@@ -31,11 +30,10 @@ const PassengerInfo = ({ flightID, children }) => {
                         {children}
                     </div>
                     <div className="col-span-2">
-                        <PriceReceipt isSticky={isSticky} />
+                        {/* <PriceReceipt isSticky={isSticky} /> */}
                     </div>
                 </div>
             </div>
-        </DataContextMaster>
     );
 };
 

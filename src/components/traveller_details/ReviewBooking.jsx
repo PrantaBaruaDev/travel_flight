@@ -1,8 +1,21 @@
-import React from "react";
+import React, { useContext } from "react";
 import useFlightData from "src/hooks/useFlightData";
+import { flightDataContext } from "src/context/context";
+import { useParams } from "react-router-dom";
+import { getTime } from './../../utils/utilsDTFormet';
 
 const ReviewBooking = () => {
-    const { flightData: data } = useFlightData();
+    const { id } = useParams();
+    const { data: contextData } = useContext(flightDataContext);
+    const { flightData, loading } = useFlightData(id);
+
+    if (loading) {
+        return <div>Loading flight data...</div>;
+    }
+
+    if (!flightData) {
+        return <div>Error: Flight data is not available.</div>;
+    }
 
     return (
         <div className="card bg-white shadow-xl px-4 py-5 mb-5 rounded-xl">
@@ -16,17 +29,17 @@ const ReviewBooking = () => {
                 </figure>
                 <div className="flex-grow font-bold">
                     <p className="font-normal text-start text-xs my-1">
-                        {`${data.alname}`}
+                        {`${flightData.airline_name}`}
                     </p>
-                    <p className="text-start">{`${data.operate_country} | ${data.operate_code}`}</p>
+                    <p className="text-start">{`${flightData.c_short_name} | ${flightData.airline_code}`}</p>
                     <div className="flex items-center text-sm gap-5">
-                        <p className="">Aircraft: {data.aircraft}</p>
+                        <p className="">Aircraft: {flightData.flight_num}</p>
                         <p className="">
-                            Operated by: {data.operate_country}
+                            Operated by: {flightData.c_short_name}
                         </p>
                     </div>
                 </div>
-                <p className="flex-none text-sm">{data.flight_class}</p>
+                <p className="flex-none text-sm">{contextData.travelers.class_value || "Not found class"}</p>
             </div>
 
             <hr className="my-4" />
@@ -35,16 +48,16 @@ const ReviewBooking = () => {
                     <div className="depart">
                         <p className="text-xs text-gray-600">Depart</p>
                         <p className="text-base font-bold">
-                            {data.flightDepart.time}
+                            {getTime(flightData.departure_time, 'time')}
                         </p>
                         <p className="text-xs font-medium">
-                            {data.flightDepart.date}
+                            {getTime(flightData.departure_time, 'date')}
                         </p>
                         <p className="text-sm font-medium">
-                            {data.flightDepart.code}
+                            {flightData.departure_airport_code}
                         </p>
                         <p className="text-sm font-medium">
-                            {data.flightDepart.city}
+                            {flightData.departure_city}
                         </p>
                     </div>
                     <div className="duration">
@@ -57,18 +70,18 @@ const ReviewBooking = () => {
                     </div>
 
                     <div className="arive">
-                        <p className="text-xs text-gray-600">Arive</p>
+                        <p className="text-xs text-gray-600">Arrive</p>
                         <p className="text-base font-bold">
-                            {data.flightArive.time}
+                            {getTime(flightData.arrival_time, 'time')}
                         </p>
                         <p className="text-xs font-medium">
-                            {data.flightArive.date}
+                            {getTime(flightData.arrival_time, 'date')}
                         </p>
                         <p className="text-sm font-medium">
-                            {data.flightArive.code}
+                            {flightData.arrival_airport_code}
                         </p>
                         <p className="text-sm font-medium">
-                            {data.flightArive.city}
+                            {flightData.arrival_city}
                         </p>
                     </div>
                 </div>

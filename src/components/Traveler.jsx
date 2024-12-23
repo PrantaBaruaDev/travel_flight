@@ -1,16 +1,24 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
+import { flightDataContext } from "src/context/context";
 
-const SelectInput = (props) => {
+const SelectInput = ({style, label, onDataChange}) => {
+    const { data } = useContext(flightDataContext);
     const [isOverlayVisible, setOverlayVisible] = useState(false);
     const [isActive, setActive] = useState(false);
     const overlayRef = useRef(null);
     const buttonRef = useRef(null);
 
     const [counters, setCounters] = useState({
-        adults: 0,
-        kids: 0,
-        children: 0,
-        infants: 0,
+        adults: data.travelers?.adults || 0,
+        kids: data.travelers?.kids || 0,
+        children: data.travelers?.children || 0,
+        infants: data.travelers?.infants || 0,
+    });
+
+    
+    const [selectData, setSelectData] = useState({
+        total_value: data.travelers?.total_value || 0,
+        class_value: data.travelers?.class_value || "Economy",
     });
 
     const classOptions = [
@@ -20,10 +28,6 @@ const SelectInput = (props) => {
         { id: "fclass", label: "First Class", value: "First Class" },
     ];
 
-    const [selectData, setSelectData] = useState({
-        value: 0,
-        smvalue: "Economy",
-    });
 
     // Function to toggle overlay visibility
     const toggleOverlay = () => {
@@ -58,14 +62,19 @@ const SelectInput = (props) => {
             counters.infants;
         setSelectData((prevData) => ({
             ...prevData,
-            value: total,
+            ...counters,
+            total_value: total,
         }));
     }, [counters]);
+
+    useEffect(()=>{
+        onDataChange(selectData);
+    },[selectData]);
 
     const handleClassTypeChange = (e) => {
         setSelectData((prev) => ({
           ...prev,
-          smvalue: e.target.value,
+          class_value: e.target.value,
         }));
     };
     
@@ -159,21 +168,21 @@ const SelectInput = (props) => {
                 ref={buttonRef}
                 className={`search-input-button text-gray-600 border-2 rounded-xl w-fit pl-5 pr-5 py-3 cursor-pointer border-teal-700 bg-white ${
                     isActive ? "bg-gray-100" : ""
-                } ${props.style && props.style}`}
+                } ${style && style}`}
                 onClick={toggleOverlay}
                 onMouseDown={handleMouseDown}
             >
                 <div className="p-0 m-0 text-start ">
-                    <p>{props.label}</p>
+                    <p>{label}</p>
                     <input
                         type="text"
                         className="focus:outline-none font-bold cursor-pointer bg-transparent"
-                        value={`${selectData.value} Travelers`}
+                        value={`${selectData.total_value} Travelers`}
                         readOnly
                     />
                     <div>
                         <small>
-                            <span>{selectData.smvalue}</span>
+                            <span>{selectData.class_value}</span>
                         </small>
                     </div>
                 </div>

@@ -13,9 +13,9 @@ const LoationOverlayItem = ({ item, onSelect }) => {
                 </div>
                 <div className="ms-1 p-0 text-left">
                     <p className="font-bold">
-                        {item.city}, {item.country}
+                        {item.city}, {item.countries_name}
                     </p>
-                    <p className="text-xs">{item.airport_name}</p>
+                    <p className="text-xs">{item.name}</p>
                 </div>
             </div>
             <p>{item.airport_code}</p>

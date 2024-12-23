@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import { getTodayDate, getNextDay, getDayOfWeek } from "src/utils/formetDate";
 
-const DatePickupInput = ({ label, style }) => {
+const DatePickupInput = ({ label, style, onDataChange }) => {
     const [selectedDate, setSelectedDate] = useState(getTodayDate());
     const [dayOfWeek, setDayOfWeek] = useState(getDayOfWeek(getTodayDate()));
     const [isActive, setActive] = useState(false);
@@ -11,6 +11,7 @@ const DatePickupInput = ({ label, style }) => {
         const date = event.target.value;
         setSelectedDate(date); // Update the selected date state
         setDayOfWeek(getDayOfWeek(date)); // Update the day of the week
+        onDataChange([selectedDate, dayOfWeek]);
     };
 
     // Focus on the date input when the container div is clicked

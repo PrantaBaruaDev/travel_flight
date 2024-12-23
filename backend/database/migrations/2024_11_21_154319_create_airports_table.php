@@ -30,3 +30,8 @@ return new class extends Migration
         Schema::dropIfExists('airports');
     }
 };
+
+/* 
+php artisan migrate:refresh --path=database/migrations/2024_11_21_154319_create_airports_table.php 
+php artisan db:seed --class=AirporteTableSeeder
+*/

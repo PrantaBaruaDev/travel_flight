@@ -3,6 +3,7 @@ import { toggleOverlay, handleClickOutside } from "src/utils/utilsButtonInput";
 import Location from "src/data/location.json";
 import SearchIcon from "src/assets/search.svg?react";
 import OverlayItem from "src/components/SelectComp/LoationOverlayItem";
+import useApiService from "src/services/useApiService";
 
 const SelectInput = ({ label, style, onDataChange }) => {
     const [isOverlayVisible, setOverlayVisible] = useState(false);
@@ -14,12 +15,19 @@ const SelectInput = ({ label, style, onDataChange }) => {
         value: Location[0].city,
         smvalue: Location[0].airport_name,
     });
-    const [location, setLocation] = useState(Location);
+    // const [location, setLocation] = useState(Location);
+
+    const route = '/airportsindex'
+    const {data, loading, setLoading, fetchData} = useApiService();
+
+    useEffect(()=>{
+        fetchData(route)
+    },[route])
 
     const handleSelection = (item) => {
         const newSelection = {
             value: item.city,
-            smvalue: item.airport_name,
+            smvalue: item.name,
         };
         setSelectData(newSelection);
         setOverlayVisible(false);
@@ -85,7 +93,7 @@ const SelectInput = ({ label, style, onDataChange }) => {
                             />
                         </div>
                         <div className="search-input-container text-gray-600 h-80 overflow-y-auto">
-                            {location.map((item, index) => (
+                            {data.map((item, index) => (
                                 <OverlayItem
                                     key={index}
                                     item={item}

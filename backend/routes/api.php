@@ -23,6 +23,7 @@ Route::get('/passengersdata', [PassengerController::class, 'getPassengerFullData
 Route::apiResource('/flights', FlightsController::class);
 Route::get('/flightsindex', [FlightsController::class, 'indexWithJoin']);
 Route::get('/flightsdetails', [FlightsController::class, 'getFlightDetails']);
+Route::get('/flightsdetails/{id}', [FlightsController::class, 'getFlightDetailsWithID']);
 
 Route::apiResource('/airlines', AirlinesController::class);
 Route::get('/airlinesindex', [AirlinesController::class, 'indexWithJoin']);

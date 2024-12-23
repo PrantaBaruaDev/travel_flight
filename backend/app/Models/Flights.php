@@ -75,4 +75,30 @@ class Flights extends Model
         )
         ->get();
     }
+    public static function getFlightDetailsWithID($id)
+{
+    return self::join('airlines', 'flights.airline_id', '=', 'airlines.id')
+        ->join('countries', 'airlines.country_id', '=', 'countries.id')
+        ->join('flight_statuses', 'flights.status', '=', 'flight_statuses.id')
+        ->join('airports as departure_airport', 'flights.departure_airport_code', '=', 'departure_airport.airport_code')
+        ->join('airports as arrival_airport', 'flights.arrival_airport_code', '=', 'arrival_airport.airport_code')
+        ->join('countries as departure_country', 'departure_airport.country_id', '=', 'departure_country.id')
+        ->join('countries as arrival_country', 'arrival_airport.country_id', '=', 'arrival_country.id')
+        ->select(
+            'flights.*',
+            'countries.short_name as c_short_name',
+            'countries.country_name as c_country_name',
+            'departure_country.country_name as departure_c_name',
+            'arrival_country.country_name as arrival_c_name',
+            'airlines.name as airline_name',
+            'airlines.code',
+            'airlines.code as airline_code',
+            'flight_statuses.status as flight_status',
+            'departure_airport.city as departure_city',
+            'arrival_airport.city as arrival_city'
+        )
+        ->where('flights.id', $id)
+        ->first();
+}
+
 }

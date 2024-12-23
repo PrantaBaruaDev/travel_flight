@@ -89,4 +89,8 @@ class FlightsController extends Controller
         $flights = Flights::getFlightDetails();
         return response()->json($flights);
     }
+    public function getFlightDetailsWithID($id) {
+        $flights = Flights::getFlightDetailsWithID($id);
+        return response()->json($flights);
+    }
 }

@@ -1,17 +1,15 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import SelectInput from "src/components/SelectInput";
 import DatePicker from "src/components/DatePickupInput";
 import planeim from "src/assets/simpleplane.jpg";
 import Traveler from "src/components/Traveler";
 import Location from 'src/data/location.json';
+import { flightDataContext } from "./../../context/context";
+import { useNavigate } from "react-router-dom";
 
 const HomeHero = () => {
-    const [data, setData] = useState({
-        from: {
-            value: Location[0].city,
-            smvalue: Location[0].airport_name,
-        }
-    });
+    const navigator = useNavigate();
+    const { data, setData } = useContext(flightDataContext);
 
     const handleChangeData = (key, value) => {
         setData((prev) => ({
@@ -46,15 +44,25 @@ const HomeHero = () => {
                                 onDataChange={(value) => handleChangeData("to", value)} 
                             />
                             <div className="flex gap-2">
-                                <DatePicker label={"Departure"} />
-                                <DatePicker label={"Retrun"} />
+                                <DatePicker label={"Departure"}
+                                    value={data.departure_date}
+                                    onDataChange={(value) => handleChangeData("departure_date", value)}
+                                />
+                                <DatePicker label={"Retrun"}
+                                    value={data.return_date}
+                                    onDataChange={(value) => handleChangeData("return_date", value)} 
+                                />
                             </div>
-                            <Traveler label={"Travelers & Booking Class"} />
+                            <Traveler label={"Travelers & Booking Class"} 
+                                value={data.travelers}
+                                onDataChange={(value) => handleChangeData("travelers", value)}
+                            />
                         </div>
 
                         <button
                             type="button"
                             className="btn my-3 px-[5em] text-2xl bg-teal-700 border-0 text-white btn-success"
+                            onClick={() => navigator(`/chooseflight`)}
                         >
                             Search
                         </button>
