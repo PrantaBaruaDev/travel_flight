@@ -55,7 +55,7 @@ const AppRouter = () => {
                         element={<EnterTraverlDetails />}
                     />
                     <Route
-                        path={"/travelerdetails"}
+                        path={"/travelerdetails/:id"}
                         element={<Travellerdetails />}
                     />
                     <Route

@@ -33,6 +33,7 @@ const PassengerForm = ({index, passengerData, onUpdatePassenger, passengerType})
         nationality: "",
         email: "",
         contact: "",
+        age_type: "",
     });
 
     // Fetch Country Data
@@ -116,6 +117,17 @@ const PassengerForm = ({index, passengerData, onUpdatePassenger, passengerType})
                 </h1>
 
                 <div className="flex gap-2 my-4">
+                    <div>
+                        <input
+                            type="text"
+                            name="age_type"
+                            className="hidden peer"
+                            value={passengerType}
+                            onChange={handleFieldChange}
+                            hidden
+                        />
+                    </div>
+
                     {["Mr", "Mrs", "Ms"].map((title) => (
                         <div key={title}>
                             <input

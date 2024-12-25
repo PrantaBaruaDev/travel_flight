@@ -1,11 +1,12 @@
 import React, { useContext, useState, useEffect } from "react";
 import PassengerFrom from "src/components/traveller_details/PassengerFrom";
 import PassengerInfo from "./layouts/PassengerInfo";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { flightDataContext } from "src/context/context";
 
 const EnterTraverlDetails = () => {
     const { id } = useParams();
+    const navigator = useNavigate();
     const { data, setData } = useContext(flightDataContext);
 
     const [passengers, setPassengers] = useState({});
@@ -59,6 +60,7 @@ const EnterTraverlDetails = () => {
             passengers: passengers
         }));
         console.log("Final Context Data:", data);
+        navigator(`/travelerdetails/${id}`)
     };
 
     return (

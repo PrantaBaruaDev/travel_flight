@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
     FaShieldAlt,
     FaCheckCircle,
@@ -8,11 +8,15 @@ import {
     FaRegCheckCircle,
 } from "react-icons/fa";
 import PassengerInfo from "./layouts/PassengerInfo";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import SeatsChoose from "../components/SeatsChoose";
+import { flightDataContext } from "src/context/context";
 
 const TravellerDetails = () => {
+    const { id } = useParams();
     const navigate = useNavigate();
+    const { data, setData } = useContext(flightDataContext);
+    
     const [selectedBagProtection, setSelectedBagProtection] = useState("bagpc2");
     const [selectedBagProtectServ, setSelectedBagProtectServ] = useState("bagpcp1");
 
@@ -88,7 +92,7 @@ const TravellerDetails = () => {
             </label>
         );
     };
-
+console.log(data)
     return (
         <PassengerInfo>
             <div className="flex flex-col items-center text-start">
