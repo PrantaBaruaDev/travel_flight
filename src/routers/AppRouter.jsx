@@ -59,10 +59,10 @@ const AppRouter = () => {
                         element={<Travellerdetails />}
                     />
                     <Route
-                        path={"/bookingsuccess"}
+                        path={"/bookingsuccess/:id"}
                         element={<Bookingsuccessful />}
                     />
-                    <Route path={"/payment"} element={<Payment />} />
+                    <Route path={"/payment/:id"} element={<Payment />} />
 
                     <Route path={"/flight"} element={<Flights />} />
                     <Route path={"/team"} element={<TeamMember />} />

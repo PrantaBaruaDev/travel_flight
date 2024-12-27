@@ -1,8 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import useFlightData from "src/hooks/useFlightData";
+import { flightDataContext } from "src/context/context";
 
 const PriceReceipt = ({ isSticky }) => {
-  const { flightData: data } = useFlightData();
+  const { id } = useParams();
+  const { data } = useContext(flightDataContext);
+  const { flightData, loading } = useFlightData(id);
 
   const [booking, setBooking] = useState({
     adult: { passenger: 2, base_fare: 3130, fees: 988 },
@@ -10,12 +14,36 @@ const PriceReceipt = ({ isSticky }) => {
     infant: { passenger: 1, base_fare: 313, fees: 248 },
   });
 
-  const [maxHeight, setMaxHeight] = useState(window.innerHeight); // Default max height for scrolling content
+  const [maxHeight, setMaxHeight] = useState(window.innerHeight);
 
+  // Update booking data based on API data
+  useEffect(() => {
+    if (data?.travelers && flightData?.price) {
+      setBooking({
+        adult: {
+          passenger: data.travelers.adults || 0,
+          base_fare: parseFloat(flightData.price) || 0,
+          fees: 988,
+        },
+        children: {
+          passenger: data.travelers.children || 0,
+          base_fare: parseFloat(flightData.price) || 0,
+          fees: 851.67,
+        },
+        infant: {
+          passenger: data.travelers.infants || 0,
+          base_fare: parseFloat(flightData.price) || 0,
+          fees: 248,
+        },
+      });
+    }
+  }, [data, flightData]);
+
+  // Adjust maxHeight on window resize
   useEffect(() => {
     const adjustHeight = () => {
-      const remainingHeight = window.innerHeight - 200; // Adjust buffer based on header & total-pay
-      setMaxHeight(Math.max(remainingHeight, 100)); // Ensure at least 100px is available
+      const remainingHeight = window.innerHeight - 200;
+      setMaxHeight(Math.max(remainingHeight, 100));
     };
 
     if (isSticky) {
@@ -42,18 +70,13 @@ const PriceReceipt = ({ isSticky }) => {
     >
       <div className="flex items-center gap-2 px-4 py-6">
         <figure>
-          {/* <img
-            className="w-[45px] rounded-full"
-            src={data.logo}
-            alt="Image"
-          /> */}
           <img
-          className="w-[50px] rounded-full"
-          src="https://img.favpng.com/9/17/22/airplane-aircraft-aviation-logo-poster-png-favpng-J9PdkddGmnqazCTzCA1RjDaLP.jpg"
-          alt="Image"
-      />
+            className="w-[50px] rounded-full"
+            src="https://img.favpng.com/9/17/22/airplane-aircraft-aviation-logo-poster-png-favpng-J9PdkddGmnqazCTzCA1RjDaLP.jpg"
+            alt="Image"
+          />
         </figure>
-        <p className="font-medium">{data.alname}</p>
+        <p className="font-medium">{flightData?.airline_name || "N/A"}</p>
       </div>
       <hr />
       <div className="mt-1 text-start px-4 py-6">
@@ -64,7 +87,7 @@ const PriceReceipt = ({ isSticky }) => {
           className="mt-2 overflow-y-scroll"
           style={{
             maxHeight: `${maxHeight}px`,
-            paddingBottom: "4rem", // Ensure padding to accommodate sticky total-pay
+            paddingBottom: "4rem",
           }}
         >
           {Object.entries(booking).map(([key, item], index) => (
@@ -106,7 +129,10 @@ const PriceReceipt = ({ isSticky }) => {
               <p className="text-sm">
                 BDT{" "}
                 <span className="text-lg font-semibold">
-                  {`${parseInt(totalPayment).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
+                  {totalPayment.toLocaleString(undefined, {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  })}
                 </span>
               </p>
             </div>
@@ -120,11 +146,16 @@ const PriceReceipt = ({ isSticky }) => {
         style={{ zIndex: 10 }}
       >
         <div className="flex justify-between">
-          <p className="text-gray-700">{`You Pay  (for 6 Travelers)`}</p>
+          <p className="text-gray-700">{`You Pay  (for ${
+            Object.values(booking).reduce((sum, item) => sum + item.passenger, 0)
+          } Travelers)`}</p>
           <p className="text-sm">
             BDT{" "}
             <span className="text-lg font-semibold">
-              {`${parseInt(totalPayment).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
+              {totalPayment.toLocaleString(undefined, {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+              })}
             </span>
           </p>
         </div>

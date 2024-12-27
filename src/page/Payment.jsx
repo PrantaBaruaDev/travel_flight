@@ -1,16 +1,20 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import master from 'src/assets/mc.jpg';
 import visa from "../assets/visa.jpg";
 import bkash from "src/assets/bkash.jpg";
 import rock from "src/assets/rocket.jpg";
 import nagad from "src/assets/nogod.jpg";
+import { useParams } from 'react-router-dom';
+import { flightDataContext } from 'src/context/context';
 
 const Payment = () => {
+  const {id} = useParams;
+  const {data, setData} = useContext(flightDataContext);
   const [selectedPayment, setSelectedPayment] = useState('Master Card');
 
   // Determine if the selected payment is a card or mobile payment
   const isCardPayment = selectedPayment === 'Master Card' || selectedPayment === 'Visa Card';
-
+console.log('Payment page data:', data)
   return (
     <div className="flex text-teal-700 font-semibold space-x-6 bg-purple-50 p-6 rounded-lg h-[80vh]">
       {/* Payment Method Selection */}

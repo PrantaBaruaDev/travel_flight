@@ -16,41 +16,33 @@ const TravellerDetails = () => {
     const { id } = useParams();
     const navigate = useNavigate();
     const { data, setData } = useContext(flightDataContext);
-    
+
     const [selectedBagProtection, setSelectedBagProtection] = useState("bagpc2");
     const [selectedBagProtectServ, setSelectedBagProtectServ] = useState("bagpcp1");
 
-    const [passengerDetails, setPessengerDetails] = useState([
-        {
-            name_title: "Mr",
-            age_type: "Adult",
-            pass_name: "Robin Hood",
-            gender: "Male",
-            dob: "17 October, 2000",
-            country: "Bangladesh",
-            email: "contact@example.com",
-            phone: "8801555555557",
-        },
-        {
-            name_title: "Mstr",
-            age_type: "Child",
-            pass_name: "Babu Lal",
-            gender: "Male",
-            dob: "17 October, 2020",
-            country: "Bangladesh",
-            email: "contact@example.com",
-            phone: "56525646",
-        },
-    ]);
-
     const handelBagProtect = (e) => {
+        const { name, value } = e.target;
         setSelectedBagProtection(e.target.id);
+        setData((prev) => ({
+            ...prev,
+            [name]: value
+        }))
     };
+
     const handleBagProtectServ = (e) => {
         setSelectedBagProtectServ(e.target.id);
+        setData((prev) => ({
+            ...prev,
+        }))
     };
 
-    const baggageServeice = ({index, serviceName, servicePrice, totalPrice, defaultChecked = false}) => {
+    const baggageServeice = ({
+        index,
+        serviceName,
+        servicePrice,
+        totalPrice,
+        defaultChecked = false,
+    }) => {
         return (
             <label
                 htmlFor={`bagpcp${index}`}
@@ -60,39 +52,44 @@ const TravellerDetails = () => {
                         : "border-gray-300 hover:border-blue-500"
                 }`}
             >
-                <p className="text-base font-medium mb-2">
-                    Bornze Service
-                </p>
-
+                <p className="text-base font-medium mb-2">Bornze Service</p>
                 <div className="flex gap-1 text-sm">
                     <FaRegCheckCircle className="text-gray-500 text-2xl mr-2" />
                     <div>
                         <p className="mb-1">{serviceName}</p>
-                        <p className="text-slate-600">BDT <span className="text-black">
-                            {`${parseInt(servicePrice).toLocaleString()}`}
-                        </span></p>
+                        <p className="text-slate-600">
+                            BDT{" "}
+                            <span className="text-black">
+                                {`${parseInt(servicePrice).toLocaleString()}`}
+                            </span>
+                        </p>
                     </div>
                 </div>
                 <hr className="my-1" />
-
                 <div className="label">
                     <input
                         type="radio"
                         id={`bagpcp${index}`}
                         name="bag_protect_serv"
-                        value={""}
+                        value={totalPrice}
                         className="radio checked:bg-teal-700"
                         onChange={handleBagProtectServ}
                         defaultChecked={defaultChecked}
                     />
-                    <p className="text-slate-600">BDT <span className="font-medium text-black">
-                        {`${parseInt(totalPrice).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
-                    </span></p>
+                    <p className="text-slate-600">
+                        BDT{" "}
+                        <span className="font-medium text-black">
+                            {`${parseInt(totalPrice).toLocaleString(undefined, {
+                                minimumFractionDigits: 2,
+                                maximumFractionDigits: 2,
+                            })}`}
+                        </span>
+                    </p>
                 </div>
             </label>
         );
     };
-console.log(data)
+
     return (
         <PassengerInfo>
             <div className="flex flex-col items-center text-start">
@@ -101,77 +98,87 @@ console.log(data)
                 </h1>
 
                 {/* Traveler Details Section */}
-                {passengerDetails.map((item, index) => (
-                    <div
-                        key={index}
-                        className="max-w-2xl w-full mx-auto my-4 p-4 border border-gray-300 rounded-lg shadow-lg"
-                    >
-                        <h2 className="text-lg font-semibold text-white bg-primary px-4 py-2 rounded-t-lg">
-                            Traveler {index + 1} ({item.age_type})
-                        </h2>
-                        <div className="p-4 bg-gray-50 rounded-b-lg">
-                            <div className="grid grid-cols-2 gap-y-2 gap-x-4 text-sm">
-                                <p>
-                                    <span className="font-medium">Name : </span>
-                                    {`${item.name_title} ${item.pass_name}`}
-                                </p>
-                                <p>
-                                    <span className="font-medium">
-                                        Gender :{" "}
-                                    </span>
-                                    {item.gender}
-                                </p>
-                                <p>
-                                    <span className="font-medium">
-                                        Date of Birth :{" "}
-                                    </span>
-                                    {item.dob}
-                                </p>
-                                <p>
-                                    <span className="font-medium">
-                                        Country :{" "}
-                                    </span>
-                                    {item.country}
-                                </p>
-                                {item.age_type !== "Child" &&
-                                    item.age_type !== "Kid" && (
-                                        <>
-                                            <p>
-                                                <span className="font-medium">
-                                                    Email :
-                                                </span>{" "}
-                                                {item.email}
-                                            </p>
-                                            <p>
-                                                <span className="font-medium">
-                                                    Phone Number :{" "}
-                                                </span>
-                                                {item.phone}
-                                            </p>
-                                        </>
-                                    )}
+                {data.passengers &&
+                    Object.values(data.passengers).map((item, index) => (
+                        <div
+                            key={index}
+                            className="max-w-2xl w-full mx-auto my-4 p-4 border border-gray-300 rounded-lg shadow-lg"
+                        >
+                            <h2 className="text-lg font-semibold text-white bg-primary px-4 py-2 rounded-t-lg">
+                                Traveler {index + 1}
+                            </h2>
+                            <div className="p-4 bg-gray-50 rounded-b-lg">
+                                <div className="grid grid-cols-2 gap-y-2 gap-x-4 text-sm">
+                                    <p>
+                                        <span className="font-medium">
+                                            Name:{" "}
+                                        </span>
+                                        {`${item.title || ""} ${
+                                            item.first_name
+                                        } ${item.last_name}`}
+                                    </p>
+                                    <p>
+                                        <span className="font-medium">
+                                            Gender :{" "}
+                                        </span>
+                                        {item.title === "Mr" ||
+                                        item.title === "Mrs"
+                                            ? "Male"
+                                            : "Female" || "N/A"}
+                                    </p>
+                                    <p>
+                                        <span className="font-medium">
+                                            Date of Birth:{" "}
+                                        </span>
+                                        {item.date_of_birth || "N/A"}
+                                    </p>
+                                    <p>
+                                        <span className="font-medium">
+                                            Passport Number:{" "}
+                                        </span>
+                                        {item.passport_number || "N/A"}
+                                    </p>
+                                    <p>
+                                        <span className="font-medium">
+                                            Passport Expiry Data:{" "}
+                                        </span>
+                                        {item.passport_expiry || "N/A"}
+                                    </p>
+                                    <p>
+                                        <span className="font-medium">
+                                            Email:{" "}
+                                        </span>
+                                        {item.email || "N/A"}
+                                    </p>
+                                    <p>
+                                        <span className="font-medium">
+                                            Contact:{" "}
+                                        </span>
+                                        {item.contact || "N/A"}
+                                    </p>
+                                    <p>
+                                        <span className="font-medium">
+                                            Nationality:{" "}
+                                        </span>
+                                        {item.nationality || "N/A"}
+                                    </p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                ))}
+                    ))}
 
-            <div className="choose-seats ">
                 {/* Select Seats Section */}
-                <h1 className="text-center text-2xl font-bold text-primary">
-                    Select Seats
-                </h1>
-                <SeatsChoose />
-            </div>
-
-                {/* Add Ons Section */}
-                <h1 className="text-center text-2xl font-bold text-primary">
-                    Add Ons
-                </h1>
+                {/* <div className="choose-seats">
+                    <h1 className="text-center text-2xl font-bold text-primary">
+                        Select Seats
+                    </h1>
+                    <SeatsChoose />
+                </div> */}
 
                 <div className="w-full mx-auto my-6 p-4 border border-gray-200 rounded-lg shadow-lg bg-white">
-                    {/* <h2 className="text-red-500 text-sm font-semibold mb-2">
+                    <h2 className="text-center text-2xl font-bold my-3 text-primary">
                         Add Ons
-                    </h2> */}
+                    </h2>
                     <h3 className="text-lg font-semibold">
                         Baggage Protection
                     </h3>
@@ -236,7 +243,7 @@ console.log(data)
                                     type="radio"
                                     id={`bagpc1`}
                                     name="bag_protection"
-                                    value={""}
+                                    value={19 * data.travelers.total_value}
                                     className="radio checked:bg-teal-700"
                                     onChange={handelBagProtect}
                                 />
@@ -293,27 +300,73 @@ console.log(data)
                     </div>
 
                     {/* Overaly Service section only active 'Blue Ribbon Bags'  */}
-                    {selectedBagProtection === 'bagpc1' && 
-                    <div className="mb-6">
-                        <div className="label mt-6">
-                            <h1 className="text-lg font-medium">
-                                Select Plane
-                            </h1>
-                            <a className="link text-primary">
-                                Terms & Conditions
-                            </a>
+                    {selectedBagProtection === "bagpc1" && (
+                        <div className="mb-6">
+                            <div className="label mt-6">
+                                <h1 className="text-lg font-medium">
+                                    Select Plane
+                                </h1>
+                                <a className="link text-primary">
+                                    Terms & Conditions
+                                </a>
+                            </div>
+                            <div className="grid grid-flow-row grid-cols-3 gap-4">
+                                {/* {baggageServeice({
+                                    index: 1,
+                                    defaultChecked: true,
+                                    serviceName: "Baggage Coverage",
+                                    servicePrice: 19000,
+                                    totalPrice: 95.0,
+                                })} */}
+
+                                <label
+                                    htmlFor={`bagpcp1`}
+                                    className={`p-4 border rounded-lg cursor-pointer ${
+                                        selectedBagProtectServ ===
+                                        `bagpcp1`
+                                            ? "border-teal-700"
+                                            : "border-gray-300 hover:border-blue-500"
+                                    }`}
+                                >
+                                    <p className="text-base font-medium mb-2">
+                                        Bornze Service
+                                    </p>
+                                    <div className="flex gap-1 text-sm">
+                                        <FaRegCheckCircle className="text-gray-500 text-2xl mr-2" />
+                                        <div>
+                                            <p className="mb-1">
+                                                Baggage Coverage
+                                            </p>
+                                            <p className="text-slate-600">
+                                                BDT{" "}
+                                                <span className="text-black">
+                                                    19.00
+                                                </span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <hr className="my-1" />
+                                    <div className="label">
+                                        <input
+                                            type="radio"
+                                            id={`bagpcp1`}
+                                            name="bag_protect_serv"
+                                            value={19.00}
+                                            className="radio checked:bg-teal-700"
+                                            onChange={handleBagProtectServ}
+                                            defaultChecked={true}
+                                        />
+                                        <p className="text-slate-600">
+                                            BDT{" "}
+                                            <span className="font-medium text-black">
+                                               {19.00 * data.travelers.total_value} 
+                                            </span>
+                                        </p>
+                                    </div>
+                                </label>
+                            </div>
                         </div>
-                        <div className="grid grid-flow-row grid-cols-3 gap-4">
-                            {baggageServeice({
-                                index: 1,
-                                defaultChecked: true,
-                                serviceName: "Baggage Coverage",
-                                servicePrice: 19000,
-                                totalPrice: 95.00,
-                            })}
-                        </div>
-                    </div>
-                    }
+                    )}
 
                     {/* Footer with Buttons */}
                     <p className="text-xs text-gray-500 text-center mb-4">
@@ -331,11 +384,13 @@ console.log(data)
                     <div className="flex gap-4 justify-center">
                         <button
                             className="px-4 py-2 border border-gray-400 rounded-md text-gray-600 text-sm hover:bg-gray-100"
-                            onClick={() => navigate("/bookingsuccess")}
+                            onClick={() => navigate(`/bookingsuccess/${id}`)}
                         >
                             Book Now (Pay Later)
                         </button>
-                        <button className="px-4 py-2 bg-primary text-white rounded-md text-sm hover:bg-teal-500">
+                        <button className="px-4 py-2 bg-primary text-white rounded-md text-sm hover:bg-teal-500"
+                            onClick={() => navigate(`/payment/${id}`)}
+                        >
                             Pay Now
                         </button>
                     </div>

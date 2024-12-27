@@ -30,7 +30,7 @@ const PassengerInfo = ({ flightID, children }) => {
                         {children}
                     </div>
                     <div className="col-span-2">
-                        {/* <PriceReceipt isSticky={isSticky} /> */}
+                        <PriceReceipt isSticky={isSticky} />
                     </div>
                 </div>
             </div>
