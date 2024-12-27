@@ -9,7 +9,7 @@ import Signin from "src/page/Signin";
 import Travellerdetails from "src/page/Travellerdetails";
 import EnterTraverlDetails from "src/page/EnterTraverlDetails";
 import Bookingsuccessful from "../page/Bookingsuccessful";
-import Payment from "../page/Payment";
+import Payment from "src/page/Payment";
 import Createaccount from "../page/Createaccount";
 import TeamMember from "src/components/TeamMember";
 
@@ -89,7 +89,7 @@ const AppRouter = () => {
                     <Route path="/admin/passengers/:id" element={<Passengers page="Edit" />} />
                     <Route path="/admin/passengers/table" element={<PassengersTable />} />
 
-                    <Route path="/admin/payments" element={<Payments />} />
+                    <Route path="/admin/payments/:id" element={<Payments />} />
                     <Route path="/admin/resarvation" element={<Resarvation />} />
 
                     <Route path="/admin/seats/table" element={<SeatsTable />} />
