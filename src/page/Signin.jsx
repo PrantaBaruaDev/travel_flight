@@ -1,10 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
 import { FaKey, FaEnvelope } from "react-icons/fa";
 import planeim from "src/assets/logback.jpg";
 import Navbar from "../components/Navbar";
 import { Link } from "react-router-dom";
+import api from "src/services/api";
 
 const Signin = () => {
+      const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [reminder, setReminder] = useState('');
+    
+      const handleLogin = async (e) => {
+        e.preventDefault(); // Prevent the default form submission behavior
+        try {
+          const response = await api.post('/member/login', { email, password });
+      
+          // Save the token in localStorage or your preferred method
+          localStorage.setItem('token', response.data.token);
+      
+          // Redirect to the React admin dashboard
+          window.location.href = response.data.redirect_url;      
+        } catch (error) {
+          console.error('Login failed', error);
+        }
+      };
+    
     return (
         <div>
             <div className="header-root">
@@ -33,6 +53,8 @@ const Signin = () => {
                                     type="text"
                                     className="grow bg-transparent outline-none"
                                     placeholder="Email"
+                                    name="email"
+                                    onChange={(e) => setEmail(e.target.value)}
                                 />
                             </div>
                         </div>
@@ -46,6 +68,8 @@ const Signin = () => {
                                     type="password"
                                     className="grow bg-transparent outline-none"
                                     placeholder="Password"
+                                    name="password"
+                                    onChange={(e) => setPassword(e.target.value)}
                                 />
                             </div>
                         </div>
@@ -66,7 +90,9 @@ const Signin = () => {
                                 Forgot Password?
                             </a>
                         </div>
-                        <button className="w-full bg-teal-700 text-white font-medium py-2 rounded-lg hover:bg-teal-500">
+                        <button className="w-full bg-teal-700 text-white font-medium py-2 rounded-lg hover:bg-teal-500"
+                            onClick={handleLogin}
+                        >
                             Sign in
                         </button>
                     {/* Create Account Link */}

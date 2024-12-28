@@ -1,7 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import api from "src/services/api";
 
-export default function Login() {
+const Login = () => {
+  const [email, setEmail] = useState('');
+const [password, setPassword] = useState('');
+const [reminder, setReminder] = useState('');
+
+  const handleLogin = async (e) => {
+    e.preventDefault(); // Prevent the default form submission behavior
+    try {
+      // const response = await api.post('/member/login', { email, password });
+  
+      // // Save the token in localStorage or your preferred method
+      // localStorage.setItem('token', response.data.token);
+  
+      // // Redirect to the React admin dashboard
+      // window.location.href = response.data.redirect_url;
+      console.log(email);
+      console.log(password);
+  
+    } catch (error) {
+      console.error('Login failed', error);
+    }
+  };
+  
+
   return (
     <>
       <div className="container mx-auto px-4 h-full">
@@ -10,9 +34,7 @@ export default function Login() {
             <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-200 border-0">
               <div className="rounded-t mb-0 px-6 py-6">
                 <div className="text-center mb-3">
-                  <h6 className="text-blueGray-500 text-sm font-bold">
-                    Sign in with
-                  </h6>
+                  <h6 className="text-blueGray-500 text-sm font-bold">Sign in with</h6>
                 </div>
                 <div className="btn-wrapper text-center">
                   <button
@@ -27,7 +49,7 @@ export default function Login() {
                     Github
                   </button>
                   <button
-                    className="bg-white active:bg-blueGray-50 text-blueGray-700 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-1 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs ease-linear transition-all duration-150"
+                    className="bg-white active:bg-blueGray-50 text-blueGray-700 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-1 mb-1 uppercase shadow hover:shadow-md inline-flex items-center text-xs ease-linear transition-all duration-150"
                     type="button"
                   >
                     <img
@@ -44,32 +66,35 @@ export default function Login() {
                 <div className="text-blueGray-400 text-center mb-3 font-bold">
                   <small>Or sign in with credentials</small>
                 </div>
-                <form>
+                <form onSubmit={handleLogin}>
                   <div className="relative w-full mb-3">
-                    <label
-                      className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                      htmlFor="grid-password"
-                    >
+                    <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2" htmlFor="grid-password">
                       Email
                     </label>
                     <input
                       type="email"
+                      name="email"
                       className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                       placeholder="Email"
+                      onChange={(e) => {setEmail(e.target.value)
+    console.log('Email:', e.target.value); 
+                      }}
+                      value={email} // Bind the value to the state variable
                     />
                   </div>
 
                   <div className="relative w-full mb-3">
-                    <label
-                      className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                      htmlFor="grid-password"
-                    >
+                    <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2" htmlFor="grid-password">
                       Password
                     </label>
                     <input
                       type="password"
+                      name="password"
                       className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                       placeholder="Password"
+                      onChange={(e) => {setPassword(e.target.value)
+                        console.log('Password:', e.target.value); }}
+                      value={password} // Bind the value to the state variable
                     />
                   </div>
                   <div>
@@ -77,7 +102,9 @@ export default function Login() {
                       <input
                         id="customCheckLogin"
                         type="checkbox"
+                        name="reminder"
                         className="form-checkbox border-0 rounded text-blueGray-700 ml-1 w-5 h-5 ease-linear transition-all duration-150"
+                        onChange={(e) => {setReminder(e.target.value)}
                       />
                       <span className="ml-2 text-sm font-semibold text-blueGray-600">
                         Remember me
@@ -88,7 +115,7 @@ export default function Login() {
                   <div className="text-center mt-6">
                     <button
                       className="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
-                      type="button"
+                      type="submit"
                     >
                       Sign In
                     </button>
@@ -117,4 +144,6 @@ export default function Login() {
       </div>
     </>
   );
-}
+};
+
+export default Login;
