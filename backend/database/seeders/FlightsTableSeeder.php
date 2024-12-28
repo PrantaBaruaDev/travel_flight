@@ -21,7 +21,7 @@ class FlightsTableSeeder extends Seeder
                 'arrival_airport_code' => 'DAC',
                 'departure_time' => '2024-12-16 21:34:00',
                 'arrival_time' => '2024-12-16 21:34:00',
-                'price' => '2024-12-16 21:34:00',
+                'price' => 150.00,
                 'status' => '1',
             ],    
         ]);
