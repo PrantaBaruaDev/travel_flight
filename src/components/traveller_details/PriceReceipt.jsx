@@ -5,7 +5,7 @@ import { flightDataContext } from "src/context/context";
 
 const PriceReceipt = ({ isSticky }) => {
   const { id } = useParams();
-  const { data } = useContext(flightDataContext);
+  const { data, setData } = useContext(flightDataContext);
   const { flightData, loading } = useFlightData(id);
 
   const [booking, setBooking] = useState({
@@ -61,6 +61,13 @@ const PriceReceipt = ({ isSticky }) => {
     (sum, [_, item]) => sum + (item.base_fare + item.fees) * item.passenger,
     0
   );
+
+useEffect(()=> {
+  setData((prev)=>({
+    ...prev,
+    totalPayment: totalPayment,
+  }))
+},[totalPayment])
 
   return (
     <div

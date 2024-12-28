@@ -1,6 +1,6 @@
 // src/routers/AppRouter.jsx
 import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Home from "src/page/Home";
 import FlightChoose from "src/page/FlightChoose";
 import Master from "src/page/layouts/Master";
@@ -24,16 +24,17 @@ import Settings from "src/admin/views/admin/Settings";
 import Tables from "src/admin/views/admin/Tables";
 import Flights from "src/admin/AAdmin/Flights/Flights";
 import FlightTable from "src/admin/AAdmin/Flights/FlightTable";
-import Airlines  from "src/admin/AAdmin/Airlines/Airlines";
-import Airports  from "src/admin/AAdmin/Airports/Airports";
-import Passengers  from "src/admin/AAdmin/Passengers/Passengers";
-import Payments  from "src/admin/AAdmin/Payments/Payments";
+import Airlines from "src/admin/AAdmin/Airlines/Airlines";
+import Airports from "src/admin/AAdmin/Airports/Airports";
+import Passengers from "src/admin/AAdmin/Passengers/Passengers";
+import Payments from "src/admin/AAdmin/Payments/Payments";
 import Resarvation from "src/admin/AAdmin/Resarvation/Resarvation";
 import Seats from "src/admin/AAdmin/Seats/Seats";
-import AirlinesTable from 'src/admin/AAdmin/Airlines/AirlinesTable';
+import AirlinesTable from "src/admin/AAdmin/Airlines/AirlinesTable";
 import AirportsTable from "src/admin/AAdmin/Airports/AirportsTable";
 import SeatsTable from "src/admin/AAdmin/Seats/SeatsTable";
-import PassengersTable from 'src/admin/AAdmin/Passengers/PassengersTable';
+import PassengersTable from "src/admin/AAdmin/Passengers/PassengersTable";
+import PrivateRoute from "../services/PrivateRoute";
 
 const AppRouter = () => {
     return (
@@ -68,37 +69,59 @@ const AppRouter = () => {
                     <Route path={"/team"} element={<TeamMember />} />
                 </Route>
 
-                <Route element={<Admin />}>
-                    {/* <Route path={"/admin/dashboard"} element={<Dashboard />} /> */}
-                    <Route path="/admin/dashboard" element={<Dashboard />} />
-                    <Route path="/admin/settings" element={<Settings />} />
+                <Route
+                    path="/admin/*"
+                    element={
+                        <PrivateRoute>
+                            <Admin />
+                        </PrivateRoute>
+                    }
+                >
+                    <Route path="dashboard" element={<Dashboard />} />
+                    <Route path="settings" element={<Settings />} />
 
-                    <Route path="/admin/flights" element={<Flights page="Create" />} />
-                    <Route path="/admin/flights/:id" element={<Flights page="Edit" />} />
-                    <Route path="/admin/flights/table" element={<FlightTable />} />
+                    <Route path="flights" element={<Flights page="Create" />} />
+                    <Route
+                        path="flights/:id"
+                        element={<Flights page="Edit" />}
+                    />
+                    <Route path="flights/table" element={<FlightTable />} />
 
-                    <Route path="/admin/airlines" element={<Airlines />} />
-                    <Route path="/admin/airlines/:id" element={<Airlines page="Edit" />} />
-                    <Route path="/admin/airlines/table" element={<AirlinesTable />} />
+                    <Route path="airlines" element={<Airlines />} />
+                    <Route
+                        path="airlines/:id"
+                        element={<Airlines page="Edit" />}
+                    />
+                    <Route path="airlines/table" element={<AirlinesTable />} />
 
-                    <Route path="/admin/airports" element={<Airports />} />
-                    <Route path="/admin/airports/:id" element={<Airports page="Edit" />} />
-                    <Route path="/admin/airports/table" element={<AirportsTable />} />
+                    <Route path="airports" element={<Airports />} />
+                    <Route
+                        path="airports/:id"
+                        element={<Airports page="Edit" />}
+                    />
+                    <Route path="airports/table" element={<AirportsTable />} />
 
-                    <Route path="/admin/passengers" element={<Passengers />} />
-                    <Route path="/admin/passengers/:id" element={<Passengers page="Edit" />} />
-                    <Route path="/admin/passengers/table" element={<PassengersTable />} />
+                    <Route path="passengers" element={<Passengers />} />
+                    <Route
+                        path="passengers/:id"
+                        element={<Passengers page="Edit" />}
+                    />
+                    <Route
+                        path="passengers/table"
+                        element={<PassengersTable />}
+                    />
 
-                    <Route path="/admin/payments/:id" element={<Payments />} />
-                    <Route path="/admin/resarvation" element={<Resarvation />} />
+                    <Route path="payments" element={<Payments />} />
+                    <Route path="resarvation" element={<Resarvation />} />
 
-                    <Route path="/admin/seats/table" element={<SeatsTable />} />
-                    <Route path="/admin/seats/:id" element={<Seats page="Edit" />} />
-                    <Route path="/admin/seats" element={<Seats />} />
+                    <Route path="seats" element={<Seats />} />
+                    <Route path="seats/:id" element={<Seats page="Edit" />} />
+                    <Route path="seats/table" element={<SeatsTable />} />
 
-                    <Route path="/admin/tables" element={<Tables />} />
-                    {/* <Redirect from="/admin" to="/admin/dashboard" /> */}
+                    <Route path="tables" element={<Tables />} />
                 </Route>
+                {/* <Redirect from="/admin" to="/admin/dashboard" /> */}
+                <Route path="*" element={<Navigate to="/signin" replace />} />
             </Routes>
         </BrowserRouter>
     );

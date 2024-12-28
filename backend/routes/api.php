@@ -12,10 +12,20 @@ use App\Http\Controllers\ReservationsController;
 use App\Http\Controllers\SeatsController;
 use App\Http\Controllers\FlightStatusController;
 use App\Http\Controllers\FlightClassController;
+use App\Http\Controllers\MemberAuthController;
+use App\Http\Controllers\FrontendRequsetController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
+
+
+Route::get('/member/login', [MemberAuthController::class, 'showLoginForm'])->name('member.login');
+Route::post('/member/login', [MemberAuthController::class, 'login']);
+Route::middleware('auth:sanctum')->post('/member/logout', [MemberAuthController::class, 'logout']);
+
+Route::post('/member/frontendrequest', [FrontendRequsetController::class, 'handleFrontendRequest']);
+
 
 Route::apiResource('/passengers', PassengerController::class);
 Route::get('/passengersdata', [PassengerController::class, 'getPassengerFullData']);
