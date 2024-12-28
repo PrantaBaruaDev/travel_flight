@@ -13,16 +13,21 @@ return new class extends Migration
     {
         Schema::create('passengers', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('reservation_id');
+            $table->unsignedBigInteger('reservation_id')->nullable();
+            $table->string('title');
             $table->string('first_name', 50);
             $table->string('last_name', 50);
             $table->string('passport_number', 50)->nullable();
+            $table->date('passport_expiry')->nullable();
+            $table->string('email')->nullable();
+            $table->date('date_of_birth');
+            $table->string('contact');
             $table->unsignedBigInteger('nationality');
             $table->timestamps();
         });
     }
 
-    /**
+    /** php artisan migrate:refresh --path=database/migrations/2024_11_21_151023_create_passengers_table.php 
      * Reverse the migrations.
      */
     public function down(): void

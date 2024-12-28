@@ -9,7 +9,7 @@ import Signin from "src/page/Signin";
 import Travellerdetails from "src/page/Travellerdetails";
 import EnterTraverlDetails from "src/page/EnterTraverlDetails";
 import Bookingsuccessful from "../page/Bookingsuccessful";
-import Payment from "../page/Payment";
+import Payment from "src/page/Payment";
 import Createaccount from "../page/Createaccount";
 import TeamMember from "src/components/TeamMember";
 
