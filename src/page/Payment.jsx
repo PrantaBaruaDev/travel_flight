@@ -4,11 +4,13 @@ import visa from "../assets/visa.jpg";
 import bkash from "src/assets/bkash.jpg";
 import rock from "src/assets/rocket.jpg";
 import nagad from "src/assets/nogod.jpg";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { flightDataContext } from "src/context/context";
+import api from 'src/services/api';
 
 const Payment = () => {
     const { id } = useParams();
+    const navigate = useNavigate();
     const { data, setData } = useContext(flightDataContext);
     const [selectedPayment, setSelectedPayment] = useState("Master Card");
     const [formData, setFormData] = useState({});
@@ -19,7 +21,9 @@ const Payment = () => {
         // cvv: "",
         // cardHolderName: "",
         // mobileNumber: "",
-        // transactionId: "",
+        // transactionId: "",  /member/frontendrequest
+
+
     useEffect(()=>{
       if (selectedPayment === "Bkash" || selectedPayment === "Nogod") {
         // Log only mobile number and transaction ID for Bkash and Nagad
@@ -53,7 +57,7 @@ const Payment = () => {
         }));
     };
 console.log(formData)
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         setData((prev) => ({
@@ -62,6 +66,16 @@ console.log(formData)
                 ...formData,
             },
         }));
+
+        try {
+            const finaldata = await api.post('/member/frontendrequest', data);
+            console.log(finaldata);
+            if(finaldata) {
+                navigate(`/bookingsuccess/${id}`);
+            }
+        } catch (error) {
+            console.error('Passenger Data Input failed', error);
+        }
     };
     console.log("data", data);
     return (

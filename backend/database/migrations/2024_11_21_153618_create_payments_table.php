@@ -18,7 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->decimal('amount', 10, 2);
             $table->timestamp('payment_date')->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->unsignedBigInteger('payment_method');
+            $table->string('payment_method');
             $table->timestamps();
         });
     }

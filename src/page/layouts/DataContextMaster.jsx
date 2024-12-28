@@ -22,6 +22,34 @@ const DataContextMaster = ({ children }) => {
     //     travelers: {},
     // });
 
+    // const [data, setData] = useState({
+    //     from: {
+    //         value: "Chittagong",
+    //         smvalue: "Cox's Bazar"
+    //     },
+    //     to: {
+    //         value: "Saidpur",
+    //         smvalue: "Saidpur"
+    //     },
+    //     departure_date: [
+    //         "2024-12-23",
+    //         "Monday"
+    //     ],
+    //     return_date: [
+    //         "2024-12-23",
+    //         "Monday"
+    //     ],
+    //     travelers: {
+    //         total_value: 4,
+    //         class_value: "Economy",
+    //         adults: 1,
+    //         kids: 1,
+    //         children: 1,
+    //         infants: 1
+    //     }
+    // });
+
+
     const [data, setData] = useState({
         from: {
             value: "Chittagong",
@@ -39,14 +67,7 @@ const DataContextMaster = ({ children }) => {
             "2024-12-23",
             "Monday"
         ],
-        travelers: {
-            total_value: 4,
-            class_value: "Economy",
-            adults: 1,
-            kids: 1,
-            children: 1,
-            infants: 1
-        }
+        travelers: {}
     });
 
     return (

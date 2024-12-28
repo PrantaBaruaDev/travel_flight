@@ -13,6 +13,7 @@ use App\Http\Controllers\SeatsController;
 use App\Http\Controllers\FlightStatusController;
 use App\Http\Controllers\FlightClassController;
 use App\Http\Controllers\MemberAuthController;
+use App\Http\Controllers\FrontendRequsetController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -22,6 +23,8 @@ Route::get('/user', function (Request $request) {
 Route::get('/member/login', [MemberAuthController::class, 'showLoginForm'])->name('member.login');
 Route::post('/member/login', [MemberAuthController::class, 'login']);
 Route::middleware('auth:sanctum')->post('/member/logout', [MemberAuthController::class, 'logout']);
+
+Route::post('/member/frontendrequest', [FrontendRequsetController::class, 'handleFrontendRequest']);
 
 
 Route::apiResource('/passengers', PassengerController::class);

@@ -8,8 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Passenger extends Model
 {
     use HasFactory; 
-    protected $fillable = ['reservation_id', 'first_name', 'last_name', 'passport_number', 'nationality'];
-
+    protected $fillable = [
+        'reservation_id', 'title', 'first_name', 'last_name', 'passport_number', 'passport_expiry', 'email', 'date_of_birth', 'contact', 'nationality'
+    ];
+    
     // Define the relationship with Airline
     public function reservation()
     {
